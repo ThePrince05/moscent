@@ -30,18 +30,43 @@ import BlackOpiumImg from '../assets/images/black-opium.webp';
 import VersaceErosImg from '../assets/images/versace-eros.webp';
 import AcquaDiGioImg from '../assets/images/acqua-di-gio.webp';
 
+// Helper function to extract the first sentence or a short snippet for shortDescription
+const getShortDescription = (fullDescription) => {
+  if (!fullDescription) return '';
 
-const fragrances = [
+  const sentenceEndings = /[.!?]/;
+  const firstSentenceMatch = fullDescription.match(sentenceEndings);
+
+  if (firstSentenceMatch) {
+    const endIndex = fullDescription.indexOf(firstSentenceMatch[0]) + 1;
+    // If the first sentence is excessively long, cut it at a reasonable point
+    if (endIndex > 150) {
+      return fullDescription.substring(0, 150).trim() + '...';
+    }
+    return fullDescription.substring(0, endIndex).trim();
+  }
+
+  // If no clear sentence ending is found, just take the first X characters
+  const maxLength = 120;
+  if (fullDescription.length > maxLength) {
+    return fullDescription.substring(0, maxLength).trim() + '...';
+  }
+  return fullDescription.trim(); // Return full description if already short
+};
+
+
+const allFragrancesData = [
   {
     id: '1',
     name: 'Versace Pour Homme (30ml)',
     brand: 'Versace',
     price: 70.00,
+    discountedPrice: 59.99,
     image: versacePourHommeImg,
     description: 'A classic yet modern aromatic fougère, this fragrance captures the essence of the Mediterranean. It opens with vibrant citrus notes, leading to a clean, floral heart, and settles into a warm, masculine base. Perfect for the confident and dynamic man.',
     category: 'men',
-    rating: 4.5, // Added rating
-    reviews: 120, // Added number of reviews
+    rating: 4.5,
+    reviews: 120,
   },
   {
     id: '2',
@@ -59,6 +84,7 @@ const fragrances = [
     name: 'Sauvage (30ml)',
     brand: 'Christian Dior',
     price: 70.00,
+    discountedPrice: 65.00,
     image: SauvageImg,
     description: 'A raw and noble composition, this highly distinctive fragrance is inspired by wide-open spaces. It features a powerful freshness of Calabrian bergamot, contrasted with the strong, woody trail of ambroxan, creating a bold and undeniably masculine signature scent.',
     category: 'men',
@@ -81,6 +107,7 @@ const fragrances = [
     name: 'Bvlgari Man (30ml)',
     brand: 'Bvlgari',
     price: 70.00,
+    discountedPrice: 60.00,
     image: BvlgariManImg,
     description: "A vibrant and woody oriental, this fragrance is a sophisticated tribute to masculine strength and elegance. It opens with bright bergamot and violet leaves, leading to a heart of vetiver and cypress, settling into a warm, sensual base of cashmere wood and benzoin. It's a modern classic for the discerning man.",
     category: 'men',
@@ -103,6 +130,7 @@ const fragrances = [
     name: '212 VIP (30ml)',
     brand: 'Carolina Herrera',
     price: 70.00,
+    discountedPrice: 55.00,
     image: VIPImg,
     description: "Inspired by the vibrant energy of New York's exclusive parties, this captivating oriental woody fragrance is for the modern man who makes his own rules. It features a unique blend of 'caviar lime,' chilled mint, and kingwood, creating a charismatic and unforgettable scent perfect for a night out.",
     category: 'men',
@@ -125,6 +153,7 @@ const fragrances = [
     name: 'One Million (30ml)',
     brand: 'Paco Rabanne',
     price: 70.00,
+    discountedPrice: 62.50,
     image: OneMillionImg,
     description: "A bold and flamboyant woody spicy fragrance, One Million embodies luxury and power. It's a striking blend of sparkling grapefruit, mint, and blood mandarin, contrasted with a sensual heart of rose and cinnamon, resting on a rich leather and amber base. An audacious scent for the man who lives life to the fullest.",
     category: 'men',
@@ -147,6 +176,7 @@ const fragrances = [
     name: 'Hugo (30ml)',
     brand: 'Hugo Boss',
     price: 70.00,
+    discountedPrice: 58.00,
     image: HugoImg,
     description: 'A fresh and invigorating aromatic green fragrance for the unconventional man. It combines crisp green apple, mint, and lavender with a smoky, woody base, creating a dynamic and effortlessly cool scent.',
     category: 'men',
@@ -169,6 +199,7 @@ const fragrances = [
     name: 'Scandal (30ml)',
     brand: 'Jean Paul Gaultier',
     price: 70.00,
+    discountedPrice: 63.00,
     image: ScandalImg,
     description: 'A charismatic and rebellious woody oriental fragrance, Scandal Pour Homme is a knock-out. It balances fresh notes of clary sage and mandarin with an addictive caramel and tonka bean heart, finishing with a sensual vetiver base.',
     category: 'men',
@@ -191,6 +222,7 @@ const fragrances = [
     name: 'Legend (30ml)',
     brand: 'Mont Blanc',
     price: 70.00,
+    discountedPrice: 60.00,
     image: LegendImg,
     description: 'A sophisticated and charismatic fougère, Legend by Mont Blanc embodies the essence of a truly inspiring man. It opens with fresh bergamot and lavender, moving to a heart of white cedarwood, and settling into a warm, sensual oakmoss and tonka bean base.',
     category: 'men',
@@ -213,6 +245,7 @@ const fragrances = [
     name: 'Joop (30ml)',
     brand: 'Joop',
     price: 70.00,
+    discountedPrice: 50.00,
     image: JoopImg,
     description: 'An intensely bold and distinctive oriental fougère, Joop! Homme is a captivating and warm fragrance. It\'s known for its powerful blend of cinnamon, jasmine, and honey, grounded by a rich vanilla and sandalwood base, making it unforgettable and alluring.',
     category: 'men',
@@ -235,6 +268,7 @@ const fragrances = [
     name: 'Desire (30ml)',
     brand: 'Dunhill',
     price: 70.00,
+    discountedPrice: 61.00,
     image: desireImg,
     description: 'A passionate and vibrant oriental woody fragrance, Dunhill Desire is for the man who seeks to make an impression. It combines fresh apple and bergamot with a warm heart of rose and teakwood, settling into an intoxicating vanilla and musk base.',
     category: 'men',
@@ -257,6 +291,7 @@ const fragrances = [
     name: 'Light Blue (30ml)',
     brand: 'Dolce & Gabbana',
     price: 70.00,
+    discountedPrice: 65.00,
     image: LightBlueWomenImg,
     description: 'Capturing the joy of Mediterranean life, Light Blue is a vibrant and fresh floral fruity fragrance for women. It blends sparkling Sicilian lemon, crisp apple, and bluebell with a heart of jasmine and white rose, resting on a warm cedarwood and musk base.',
     category: 'women',
@@ -279,6 +314,7 @@ const fragrances = [
     name: 'Hypnotic Poison (30ml)',
     brand: 'Christian Dior',
     price: 70.00,
+    discountedPrice: 60.00,
     image: HypnoticPoisonImg,
     description: 'A mesmerizing and enigmatic oriental vanilla fragrance, Hypnotic Poison is a captivating elixir. It blends bitter almond, caraway, and jasmine with a creamy vanilla and musk base, creating a mysteriously alluring and powerfully seductive scent.',
     category: 'women',
@@ -301,6 +337,7 @@ const fragrances = [
     name: 'Olympea (30ml)',
     brand: 'Paco Rabanne',
     price: 70.00,
+    discountedPrice: 62.00,
     image: OlympeaImg,
     description: 'A divine and powerful oriental fresh fragrance, Olympéa is inspired by a modern goddess. It blends sparkling green mandarin and aquatic notes with a unique salty vanilla accord and a rich ambergris and sandalwood base, creating an intensely captivating and addictive aroma.',
     category: 'women',
@@ -323,6 +360,7 @@ const fragrances = [
     name: 'Scandal (30ml)',
     brand: 'Jean Paul Gaultier',
     price: 70.00,
+    discountedPrice: 58.00,
     image: ScandalWomenImg,
     description: 'A daring and elegant chypre honey fragrance, Scandal is a burst of Parisian chic. It opens with vibrant blood orange, leading to a sumptuous heart of honey and gardenia, and settling into a warm, patchouli-infused base, leaving an unforgettable trail.',
     category: 'women',
@@ -345,12 +383,37 @@ const fragrances = [
     name: 'Black Opium (30ml)',
     brand: 'Yves Saint Laurent',
     price: 70.00,
+    discountedPrice: 60.00,
     image: BlackOpiumImg,
     description: 'An addictive and electrifying oriental vanilla fragrance, Black Opium is a shot of adrenaline. It combines the dark intensity of coffee beans with a sparkling white floral bouquet and a sensual vanilla and patchouli base, creating a captivating and bold statement.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
   },
+];
+
+// Apply short description to all fragrances
+const fragrancesWithShortDescription = allFragrancesData.map(frag => ({
+  ...frag,
+  shortDescription: getShortDescription(frag.description)
+}));
+
+// --- Shuffling Logic ---
+const menFragrances = fragrancesWithShortDescription.filter(f => f.category === 'men');
+const womenFragrances = fragrancesWithShortDescription.filter(f => f.category === 'women');
+
+const firstFiveMen = menFragrances.slice(0, 5);
+const firstFiveWomen = womenFragrances.slice(0, 5);
+
+const remainingMen = menFragrances.slice(5);
+const remainingWomen = womenFragrances.slice(5);
+
+// Combine the first 10, then add the rest
+const fragrances = [
+  ...firstFiveMen,
+  ...firstFiveWomen, // Corrected from firstFiveWomen (typo fixed)
+  ...remainingMen,
+  ...remainingWomen,
 ];
 
 export default fragrances;

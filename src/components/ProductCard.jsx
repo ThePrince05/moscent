@@ -29,11 +29,12 @@ const StarRating = ({ rating, numReviews, totalStars = 5 }) => {
 
 
 export default function ProductCard({ product }) {
-  const { id, name, brand, price, image, rating = 0, reviews = 0 } = product;
+  // Destructure discountedPrice and shortDescription
+  const { id, name, brand, price, image, rating = 0, reviews = 0, discountedPrice, shortDescription } = product;
 
   return (
     <div className="bg-[#F2F4F3] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full"> {/* Card background: Primary Background */}
-      {/* Increased image container height again */}
+      {/* Increased image container height */}
       <Link to={`/product/${id}`} className="block relative h-64 sm:h-72 overflow-hidden">
         <img
           src={image}
@@ -42,22 +43,59 @@ export default function ProductCard({ product }) {
         />
       </Link>
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-lg font-semibold text-[#0A0908] line-clamp-2"> {/* Product Name: Primary Text */}
-          {name}
-        </h3>
-        <p className="text-sm text-[#0A0908]"> {/* Brand Name: Primary Text */}
+        {/* Product Name with Tooltip */}
+        <div className="relative group min-h-[1.5em]"> {/* min-h to prevent layout shift if name is short */}
+          <h3 className="text-lg font-semibold text-[#0A0908] whitespace-nowrap overflow-hidden text-ellipsis">
+            {name}
+          </h3>
+          {/* Tooltip content - only appears on hover if text overflows via CSS */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
+                        bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                        pointer-events-none"> {/* pointer-events-none makes it clickable through until visible */}
+            {name}
+          </div>
+        </div>
+
+        {/* Brand Name: Adjusted to mb-2 for slightly more space */}
+        <p className="text-sm text-[#0A0908] mb-2">
           {brand}
         </p>
 
-        {/* Star Rating Display */}
+        {/* Short Description with Tooltip */}
+        {shortDescription && (
+          <div className="relative group min-h-[2.5em]"> {/* Adjusted min-h for 2 lines of text */}
+            <p className="text-sm text-gray-600 mb-2 font-serif line-clamp-2">
+              {shortDescription}
+            </p>
+            {/* Tooltip for Short Description */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
+                          bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                          opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                          pointer-events-none">
+              {shortDescription}
+            </div>
+          </div>
+        )}
+
+        {/* Star Rating Display: Adjusted mb-2 to mb-3 for more bottom margin */}
         {rating > 0 && (
-          <div className="mt-2 mb-2">
+          <div className="mt-2 mb-3">
             <StarRating rating={rating} numReviews={reviews} />
           </div>
         )}
 
         <div className="mt-auto">
-          <p className="text-xl font-bold text-[#0A0908] mb-3">R{price.toFixed(2)}</p> {/* Price: Primary Text */}
+          {/* Price Display with Discount */}
+          {discountedPrice && discountedPrice < price ? (
+            <p className="text-xl font-bold text-[#0A0908] mb-3">
+              {/* NEW PRICE FIRST, THEN OLD PRICE */}
+              R{discountedPrice.toFixed(2)}{' '} {/* Add a space here */}
+              <span className="line-through text-gray-500 text-base font-normal">R{price.toFixed(2)}</span>
+            </p>
+          ) : (
+            <p className="text-xl font-bold text-[#0A0908] mb-3">R{price.toFixed(2)}</p>
+          )}
           <button className="w-full bg-[#0A0908] text-[#F2F4F3] py-2 px-4 rounded-md hover:bg-[#D6001A] transition duration-300 text-base font-medium"> {/* Button: Primary Text background, Primary Background text, Accent Red hover */}
             Add to Cart
           </button>

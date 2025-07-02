@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -11,8 +12,27 @@
 
 body{
     background-color: #F2F4F3; /* Primary Background */
+    font-family: 'Inter', sans-serif; 
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes scroll-brands {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Adjust this value based on the number of original brands and item width */
+    /* If you have N brands and each takes 1/6 of screen, you scroll -100% / N * total brands */
+    /* For duplicatedBrands with 2x brands, we want to scroll exactly half the total width */
+    transform: translateX(-50%); 
+  }
+}
+
+/* Apply animation to Tailwind utility class */
+.animate-scroll-brands {
+  animation: scroll-brands 30s linear infinite; /* Adjust time for speed */
+  will-change: transform;
+}

@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import ProductCard from '../components/ProductCard'; // Import your ProductCard
 import fragrances from '../data/fragrances'; // Import your fragrance mock data
+import BrandSlider from '../components/BrandSlider'; // Import the BrandSlider component
 
 export default function Home() {
   // Get a selection of featured products (e.g., the first 8-10 to enable scrolling)
@@ -49,15 +50,19 @@ export default function Home() {
       </Link>
     </nav>
 
-      {/* Hero Banner */}
-      <section className="bg-[#F2F4F3] py-8 px-4 text-center border-t border-b border-gray-200">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0A0908] tracking-tight mb-2">
-          FREE SHIPPING NATIONWIDE
-        </h2>
-        <p className="text-sm sm:text-base md:text-lg text-[#0A0908] max-w-xl mx-auto">
-          Buy 20 or more fragrances and we'll cover your shipping.
-        </p>
-      </section>
+    {/* Hero Banner */}
+    <section className="bg-[#F2F4F3] py-8 px-4 sm:px-6 lg:px-8 text-center border-t border-b border-gray-200">
+      <div className="max-w-4xl mx-auto">
+       <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+               font-extrabold text-[#0A0908] tracking-tight mb-3 font-sans">
+        Unlock Free Nationwide Delivery.
+      </h2>
+      <p className="text-base sm:text-lg md:text-xl 
+                    text-[#0A0908] max-w-xl mx-auto font-serif">
+        Your shipping is on us when you purchase 5 fragrances.
+      </p>
+      </div>
+    </section>
 
       {/* Featured Products Section - With Navigation Arrows */}
       <section className="py-12 px-0 sm:px-6 lg:px-8 relative">
@@ -135,6 +140,9 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
+      {/* --- Brand Slider Section --- */}
+      <BrandSlider />
 
       {/* You can add more sections here, e.g., "About Us", "Latest Blog" etc. */}
     </div>
