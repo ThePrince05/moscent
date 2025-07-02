@@ -26,7 +26,7 @@ import OlympeaImg from '../assets/images/olympea.webp';
 import GoodGirlImg from '../assets/images/good-girl.webp';
 import ScandalWomenImg from '../assets/images/scandal-women.webp';
 import JAdoreImg from '../assets/images/j-adore.webp';
-import BlackOpiumImg from '../assets/images/black-opium.jpg';
+import BlackOpiumImg from '../assets/images/black-opium.webp';
 import VersaceErosImg from '../assets/images/versace-eros.webp';
 import AcquaDiGioImg from '../assets/images/acqua-di-gio.webp';
 

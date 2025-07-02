@@ -22,7 +22,7 @@ export default function Navbar() {
                 <FiMenu size={24} />
               </button>
               {/* Mo'Scent text hover changed to the new accent red #D6001A */}
-              <Link to="/" className="text-[#F2F4F3] text-[1.9rem] font-bold font-inter hover:text-[#D6001A]">
+              <Link to="/" className="text-[#F2F4F3] text-[1.7rem] font-bold font-inter hover:text-[#D6001A]">
                 Mo'Scent
               </Link>
             </div>
@@ -30,7 +30,7 @@ export default function Navbar() {
 
           {/* CENTER: Search Bar */}
           <div className={`flex-1 mx-4 ${mobileSearchOpen ? '' : 'hidden md:flex'} max-w-3xl`}>
-            <form className="relative w-full">
+            <form className="relative w-full ">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FiSearch size={20} className="text-[#F2F4F3] opacity-60" /> {/* Search icon: Off-White with opacity */}
               </div>
@@ -38,7 +38,7 @@ export default function Navbar() {
                 autoFocus
                 type="search"
                 placeholder="Search fragrances..."
-                className="w-full border border-[#F2F4F3]/20 rounded-full py-2 pl-10 pr-4 text-sm
+                className="w-full border border-[#F2F4F3]/20 rounded-full py-2 pl-10 pr-4 text-base
                            placeholder-[#F2F4F3]/70 text-[#F2F4F3] bg-[#1A1A1A] /* Search input background slightly lighter black */
                            focus:outline-none focus:ring-2 focus:ring-[#D6001A] focus:border-[#D6001A]" /* Focus: New Red Accent */
               />

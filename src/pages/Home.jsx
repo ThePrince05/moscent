@@ -22,32 +22,32 @@ export default function Home() {
     // Keeping bg-[#F2F4F3] here for explicit clarity, though it might be redundant if body style applies.
     <div className="bg-[#F2F4F3] min-h-screen">
       {/* Category Header */}
-      <nav className="flex justify-center gap-8 py-5 border-b text-xl font-semibold text-[#0A0908] bg-[#F2F4F3]">
-        <Link
-          to="/catalog?category=men" // Example: link to catalog with a 'men' category filter
-          className="relative px-2 pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
-                     after:bg-[#49111C] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
-                     hover:after:scale-x-100"
-        >
-          Men
-        </Link>
-        <Link
-          to="/catalog?category=women" // Example: link to catalog with a 'women' category filter
-          className="relative px-2 pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
-                     after:bg-[#49111C] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
-                     hover:after:scale-x-100"
-        >
-          Women
-        </Link>
-        <Link
-          to="/catalog?category=unisex" // CORRECTED: Link to unisex category
-          className="relative px-2 pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
-                     after:bg-[#49111C] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
-                     hover:after:scale-x-100"
-        >
-          Unisex
-        </Link>
-      </nav>
+    <nav className="flex justify-center gap-8 py-5 border-b text-xl font-semibold text-[#0A0908] bg-[#F2F4F3]">
+      <Link
+        to="/catalog?category=men" // Example: link to catalog with a 'men' category filter
+        className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
+                  after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
+                  hover:after:scale-x-100"
+      >
+        Men
+      </Link>
+      <Link
+        to="/catalog?category=women" // Example: link to catalog with a 'women' category filter
+        className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
+                  after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
+                  hover:after:scale-x-100"
+      >
+        Women
+      </Link>
+      <Link
+        to="/catalog?category=unisex" // CORRECTED: Link to unisex category
+        className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
+                  after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
+                  hover:after:scale-x-100"
+      >
+        Unisex
+      </Link>
+    </nav>
 
       {/* Hero Banner */}
       <section className="bg-[#F2F4F3] py-8 px-4 text-center border-t border-b border-gray-200">
@@ -91,7 +91,7 @@ export default function Home() {
             className="
               absolute right-0 top-1/2 -translate-y-1/2 transform
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
-              hidden sm:flex items-center justify-center
+              hidden sm:flex items-center justify-on-right
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
               mr-2 lg:mr-8
             "
@@ -129,7 +129,7 @@ export default function Home() {
         <div className="text-center mt-10 px-4">
           <Link
             to="/catalog"
-            className="inline-block bg-[#0A0908] text-[#F2F4F3] py-3 px-8 rounded-md text-lg font-medium hover:bg-[#49111C] transition duration-300"
+            className="inline-block bg-[#0A0908] text-[#F2F4F3] py-3 px-8 rounded-md text-lg font-medium hover:bg-[#D6001A] transition duration-300"
           >
             View All Fragrances
           </Link>
