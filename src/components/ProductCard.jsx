@@ -30,17 +30,29 @@ const StarRating = ({ rating, numReviews, totalStars = 5 }) => {
 
 export default function ProductCard({ product }) {
   // Destructure discountedPrice and shortDescription
-  const { id, name, brand, price, image, rating = 0, reviews = 0, discountedPrice, shortDescription } = product;
+  const { id, name, brand, price, image, rating = 0, reviews = 0, discountedPrice, shortDescription, category } = product; // Destructure 'category'
+
+  // Determine if the category is a gender (for special styling)
+  const isGenderCategory = ['men', 'women', 'unisex'].includes(category.toLowerCase());
 
   return (
     <div className="bg-[#F2F4F3] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full"> {/* Card background: Primary Background */}
-      {/* Increased image container height */}
+      {/* Image container: now relative to position the tag */}
       <Link to={`/product/${id}`} className="block relative h-64 sm:h-72 overflow-hidden">
         <img
           src={image}
           alt={name}
           className="w-full h-full object-cover object-center"
         />
+        {/* --- Gender Tag Added to Image Corner --- */}
+        {isGenderCategory && ( // Only display if it's a gender category
+          <div className="absolute top-2 right-2 z-10"> {/* Positioned top-right */}
+            <span className="bg-[#D6001A] text-[#F2F4F3] px-3 py-1 rounded-full text-xs font-medium capitalize shadow">
+              {category}
+            </span>
+          </div>
+        )}
+        {/* --- End Gender Tag --- */}
       </Link>
       <div className="p-4 flex flex-col flex-grow">
         {/* Product Name with Tooltip */}
@@ -50,9 +62,9 @@ export default function ProductCard({ product }) {
           </h3>
           {/* Tooltip content - only appears on hover if text overflows via CSS */}
           <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
-                        bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
-                        opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
-                        pointer-events-none"> {/* pointer-events-none makes it clickable through until visible */}
+                           bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                           opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                           pointer-events-none"> {/* pointer-events-none makes it clickable through until visible */}
             {name}
           </div>
         </div>
@@ -70,9 +82,9 @@ export default function ProductCard({ product }) {
             </p>
             {/* Tooltip for Short Description */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
-                          bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
-                          opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
-                          pointer-events-none">
+                            bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                            pointer-events-none">
               {shortDescription}
             </div>
           </div>
