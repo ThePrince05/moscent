@@ -59,12 +59,12 @@ export default function Home() {
       <section className="relative py-8 sm:py-12 lg:py-16 bg-[#F2F4F3] text-center flex items-center justify-center">
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl
-                        font-extrabold text-[#0A0908] tracking-tight mb-6 font-sans leading-tight">
+                         font-extrabold text-[#0A0908] tracking-tight mb-6 font-sans leading-tight">
             Experience More.<br/>
             Experience Mo'Scent.
           </h2>
           <p className="text-lg sm:text-xl md:text-2xl
-                        text-[#0A0908] max-w-xl mx-auto font-serif mb-10">
+                         text-[#0A0908] max-w-xl mx-auto font-serif mb-10">
             Discover a world of captivating fragrances designed to define you.
           </p>
           {/* Call-to-Action Button */}
@@ -76,6 +76,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
       {/* --- Trending Fragrances Section --- */}
       <section className="py-12 px-0 sm:px-6 lg:px-8 relative">
         <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
@@ -83,7 +84,7 @@ export default function Home() {
         </h2>
 
         <div className="relative">
-          {/* Left Arrow Button */}
+          {/* Left Arrow Button - Adjusted ml- to match new padding */}
           <button
             onClick={() => scroll(trendingScrollContainerRef, -300)} // Scroll left for trending
             className="
@@ -91,7 +92,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              ml-2 lg:ml-8
+              ml-4 lg:ml-12 {/* Adjusted ml-2 to ml-4, lg:ml-8 to lg:ml-12 */}
             "
             aria-label="Scroll left"
           >
@@ -101,7 +102,7 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Right Arrow Button */}
+          {/* Right Arrow Button - Adjusted mr- to match new padding */}
           <button
             onClick={() => scroll(trendingScrollContainerRef, 300)} // Scroll right for trending
             className="
@@ -109,7 +110,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              mr-2 lg:mr-8
+              mr-4 lg:mr-12 {/* Adjusted mr-2 to mr-4, lg:mr-8 to lg:mr-12 */}
             "
             aria-label="Scroll right"
           >
@@ -119,11 +120,11 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Horizontal Scroll Container for Trending */}
+          {/* Horizontal Scroll Container for Trending - Increased px-4 to px-16 */}
           <div
             ref={trendingScrollContainerRef} // Attach the trending ref here
             className="
-              flex space-x-6 px-4 pb-4 overflow-x-scroll no-scrollbar
+              flex space-x-6 px-16 pb-4 overflow-x-scroll no-scrollbar {/* Changed px-4 to px-16 */}
               snap-x snap-mandatory scroll-smooth
             "
           >
@@ -151,7 +152,7 @@ export default function Home() {
 
         {/* Wrapper for scroll container and arrows */}
         <div className="relative">
-          {/* Left Arrow Button */}
+          {/* Left Arrow Button - Adjusted ml- to match new padding */}
           <button
             onClick={() => scroll(featuredScrollContainerRef, -300)} // Scroll left for featured
             className="
@@ -159,7 +160,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              ml-2 lg:ml-8
+              ml-4 lg:ml-12 {/* Adjusted ml-2 to ml-4, lg:ml-8 to lg:ml-12 */}
             "
             aria-label="Scroll left"
           >
@@ -169,7 +170,7 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Right Arrow Button */}
+          {/* Right Arrow Button - Adjusted mr- to match new padding */}
           <button
             onClick={() => scroll(featuredScrollContainerRef, 300)} // Scroll right for featured
             className="
@@ -177,7 +178,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              mr-2 lg:mr-8
+              mr-4 lg:mr-12 {/* Adjusted mr-2 to mr-4, lg:mr-8 to lg:mr-12 */}
             "
             aria-label="Scroll right"
           >
@@ -187,11 +188,11 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Horizontal Scroll Container for Featured */}
+          {/* Horizontal Scroll Container for Featured - Increased px-4 to px-16 */}
           <div
             ref={featuredScrollContainerRef} // Attach the featured ref here
             className="
-              flex space-x-6 px-4 pb-4 overflow-x-scroll no-scrollbar
+              flex space-x-6 px-16 pb-4 overflow-x-scroll no-scrollbar {/* Changed px-4 to px-16 */}
               snap-x snap-mandatory scroll-smooth
             "
           >
@@ -220,16 +221,15 @@ export default function Home() {
         </div>
       </section>
 
-     {/* --- Brand Slider Section --- */}
-      {/* Added top and bottom margin for separation */}
-      <div className="mt-20 mb-20">
+      {/* --- Brand Slider Section --- */}
+      {/* Reduced bottom margin for separation */}
+      <div className="mt-20 mb-12">
         <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
           Our Valued Brands
         </h2>
         <BrandSlider />
       </div>
 
-      {/* You can add more sections here, e.g., "About Us", "Latest Blog" etc. */}
     </div>
   );
 }

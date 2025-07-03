@@ -36,7 +36,8 @@ export default function ProductCard({ product }) {
   const isGenderCategory = ['men', 'women', 'unisex'].includes(category.toLowerCase());
 
   return (
-    <div className="bg-[#F2F4F3] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden flex flex-col h-full"> {/* Card background: Primary Background */}
+    // IMPORTANT: Removed 'overflow-hidden' from this main div
+    <div className="bg-[#F2F4F3] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col h-full"> {/* Card background: Primary Background */}
       {/* Image container: now relative to position the tag */}
       <Link to={`/product/${id}`} className="block relative h-64 sm:h-72 overflow-hidden">
         <img
@@ -47,7 +48,7 @@ export default function ProductCard({ product }) {
         {/* --- Gender Tag Added to Image Corner --- */}
         {isGenderCategory && ( // Only display if it's a gender category
           <div className="absolute top-2 right-2 z-10"> {/* Positioned top-right */}
-            <span className="bg-[#D6001A] text-[#F2F4F3] px-3 py-1 rounded-full text-xs font-medium capitalize shadow">
+            <span className="bg-[#0A0908] text-[#F2F4F3] px-3 py-1 rounded-full text-xs font-medium capitalize shadow">
               {category}
             </span>
           </div>
@@ -56,15 +57,15 @@ export default function ProductCard({ product }) {
       </Link>
       <div className="p-4 flex flex-col flex-grow">
         {/* Product Name with Tooltip */}
-        <div className="relative group min-h-[1.5em]"> {/* min-h to prevent layout shift if name is short */}
+        <div className="relative group min-h-[1.5em] mb-1"> {/* min-h to prevent layout shift if name is short */}
           <h3 className="text-lg font-semibold text-[#0A0908] whitespace-nowrap overflow-hidden text-ellipsis">
             {name}
           </h3>
           {/* Tooltip content - only appears on hover if text overflows via CSS */}
-          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
-                           bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
-                           opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
-                           pointer-events-none"> {/* pointer-events-none makes it clickable through until visible */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xl
+                                   bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                                   pointer-events-none"> {/* pointer-events-none makes it clickable through until visible */}
             {name}
           </div>
         </div>
@@ -80,19 +81,18 @@ export default function ProductCard({ product }) {
             <p className="text-sm text-gray-600 mb-2 font-serif line-clamp-2">
               {shortDescription}
             </p>
-            {/* Tooltip for Short Description */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-xs
-                            bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
-                            pointer-events-none">
+            {/* Tooltip for Short Description - Changed max-w-xl to max-w-md */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-sm
+                                   bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                                   pointer-events-none">
               {shortDescription}
             </div>
           </div>
         )}
 
-        {/* Star Rating Display: Adjusted mb-2 to mb-3 for more bottom margin */}
         {rating > 0 && (
-          <div className="mt-2 mb-3">
+          <div className=" mb-2">
             <StarRating rating={rating} numReviews={reviews} />
           </div>
         )}
