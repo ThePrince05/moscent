@@ -6,30 +6,26 @@ import fragrances from '../data/fragrances'; // Import your fragrance mock data
 import BrandSlider from '../components/BrandSlider'; // Import the BrandSlider component
 
 export default function Home() {
-  // Get a selection of featured products (e.g., the first 8-10 to enable scrolling)
-  const featuredProducts = fragrances.slice(0, 10); // Increased count to make scrolling more apparent
-
-  // Get a selection of trending products (e.g., the next 5 products)
-  // In a real app, this would come from a backend based on popularity/sales
-  const trendingProducts = fragrances.slice(10, 15); // Example: Using different slice for trending
-
-  // Create separate refs for each slider
-  const featuredScrollContainerRef = useRef(null);
+  const trendingProducts = fragrances.slice(10, 15);
   const trendingScrollContainerRef = useRef(null);
+  const saleScrollContainerRef = useRef(null);
 
-  // Function to handle scrolling left or right for a specific ref
   const scroll = (scrollContainerRef, scrollOffset) => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
     }
   };
 
+  const onSaleProducts = fragrances.filter(product =>
+    product.discountedPrice && product.discountedPrice < product.price
+  );
+
   return (
     <div className="bg-[#F2F4F3] min-h-screen">
       {/* Category Header */}
       <nav className="flex justify-center gap-8 py-5 border-b text-xl font-semibold text-[#0A0908] bg-[#F2F4F3]">
         <Link
-          to="/catalog?category=men" // Example: link to catalog with a 'men' category filter
+          to="/catalog?category=men"
           className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
                      after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
                      hover:after:scale-x-100"
@@ -37,7 +33,7 @@ export default function Home() {
           Men
         </Link>
         <Link
-          to="/catalog?category=women" // Example: link to catalog with a 'women' category filter
+          to="/catalog?category=women"
           className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
                      after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
                      hover:after:scale-x-100"
@@ -45,7 +41,7 @@ export default function Home() {
           Women
         </Link>
         <Link
-          to="/catalog?category=unisex" // CORRECTED: Link to unisex category
+          to="/catalog?category=unisex"
           className="relative px-3 pt-3 pb-3 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-full
                      after:bg-[#D6001A] after:scale-x-0 after:origin-left after:transition-transform after:duration-200
                      hover:after:scale-x-100"
@@ -54,8 +50,7 @@ export default function Home() {
         </Link>
       </nav>
 
-    {/* --- Hero Banner --- */}
-      {/* Significantly reduced py- values for a more compact hero */}
+      {/* --- Hero Banner --- */}
       <section className="relative py-8 sm:py-12 lg:py-16 bg-[#F2F4F3] text-center flex items-center justify-center">
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl
@@ -78,54 +73,56 @@ export default function Home() {
       </section>
 
       {/* --- Trending Fragrances Section --- */}
-      <section className="py-12 px-0 sm:px-6 lg:px-8 relative">
+      {/* Reverted section px- to smaller values for general section padding */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
         <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
           Trending Fragrances
         </h2>
 
         <div className="relative">
-          {/* Left Arrow Button - Adjusted ml- to match new padding */}
+          {/* Left Arrow Button - Adjusted ml- to account for *scroll container's* internal padding */}
           <button
-            onClick={() => scroll(trendingScrollContainerRef, -300)} // Scroll left for trending
+            onClick={() => scroll(trendingScrollContainerRef, -300)}
             className="
               absolute left-0 top-1/2 -translate-y-1/2 transform
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              ml-4 lg:ml-12 {/* Adjusted ml-2 to ml-4, lg:ml-8 to lg:ml-12 */}
+              ml-4 md:ml-8 lg:ml-12 {/* Adjusted to match the `gap-x` idea below */}
             "
             aria-label="Scroll left"
           >
-            {/* Left Arrow SVG Icon */}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          {/* Right Arrow Button - Adjusted mr- to match new padding */}
+          {/* Right Arrow Button - Adjusted mr- to account for *scroll container's* internal padding */}
           <button
-            onClick={() => scroll(trendingScrollContainerRef, 300)} // Scroll right for trending
+            onClick={() => scroll(trendingScrollContainerRef, 300)}
             className="
               absolute right-0 top-1/2 -translate-y-1/2 transform
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              mr-4 lg:mr-12 {/* Adjusted mr-2 to mr-4, lg:mr-8 to lg:mr-12 */}
+              mr-4 md:mr-8 lg:mr-12 {/* Adjusted to match the `gap-x` idea below */}
             "
             aria-label="Scroll right"
           >
-            {/* Right Arrow SVG Icon */}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          {/* Horizontal Scroll Container for Trending - Increased px-4 to px-16 */}
+          {/* Horizontal Scroll Container for Trending - Using custom padding strategy */}
           <div
-            ref={trendingScrollContainerRef} // Attach the trending ref here
+            ref={trendingScrollContainerRef}
             className="
-              flex space-x-6 px-16 pb-4 overflow-x-scroll no-scrollbar {/* Changed px-4 to px-16 */}
+              flex space-x-6 pb-4 overflow-x-scroll no-scrollbar
               snap-x snap-mandatory scroll-smooth
+              /* Custom padding at ends of scrollable content for tooltip space */
+              px-4 sm:px-6 md:px-8 lg:px-12
+              /* This creates space *inside* the scroll area without breaking snapping */
             "
           >
             {trendingProducts.map((product) => (
@@ -142,75 +139,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section>
-
-      {/* --- Featured Products Section --- */}
-      <section className="py-12 px-0 sm:px-6 lg:px-8 relative">
-        <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
-          Featured Fragrances
-        </h2>
-
-        {/* Wrapper for scroll container and arrows */}
-        <div className="relative">
-          {/* Left Arrow Button - Adjusted ml- to match new padding */}
-          <button
-            onClick={() => scroll(featuredScrollContainerRef, -300)} // Scroll left for featured
-            className="
-              absolute left-0 top-1/2 -translate-y-1/2 transform
-              bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
-              hidden sm:flex items-center justify-center
-              hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              ml-4 lg:ml-12 {/* Adjusted ml-2 to ml-4, lg:ml-8 to lg:ml-12 */}
-            "
-            aria-label="Scroll left"
-          >
-            {/* Left Arrow SVG Icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          {/* Right Arrow Button - Adjusted mr- to match new padding */}
-          <button
-            onClick={() => scroll(featuredScrollContainerRef, 300)} // Scroll right for featured
-            className="
-              absolute right-0 top-1/2 -translate-y-1/2 transform
-              bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
-              hidden sm:flex items-center justify-center
-              hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              mr-4 lg:mr-12 {/* Adjusted mr-2 to mr-4, lg:mr-8 to lg:mr-12 */}
-            "
-            aria-label="Scroll right"
-          >
-            {/* Right Arrow SVG Icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Horizontal Scroll Container for Featured - Increased px-4 to px-16 */}
-          <div
-            ref={featuredScrollContainerRef} // Attach the featured ref here
-            className="
-              flex space-x-6 px-16 pb-4 overflow-x-scroll no-scrollbar {/* Changed px-4 to px-16 */}
-              snap-x snap-mandatory scroll-smooth
-            "
-          >
-            {featuredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="
-                  flex-shrink-0
-                  w-[calc(100vw-8rem)] sm:w-80 md:w-72
-                  snap-center
-                "
-              >
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
-        </div> {/* End of new div for scroll area and arrows */}
-
         <div className="text-center mt-10 px-4">
           <Link
             to="/catalog"
@@ -221,15 +149,92 @@ export default function Home() {
         </div>
       </section>
 
+      {/* --- Fragrances on Sale Section --- */}
+      {onSaleProducts.length > 0 && (
+        <section className="py-16 px-4 sm:px-6 lg:px-8 relative bg-[#F2F4F3] mb-12">
+          <h2 className="text-3xl font-bold text-center text-[#D6001A] mb-8 px-4">
+            Fragrances on Sale!
+          </h2>
+
+          <div className="relative">
+            {/* Left Arrow Button for Sale - Adjusted ml- to account for *scroll container's* internal padding */}
+            <button
+              onClick={() => scroll(saleScrollContainerRef, -300)}
+              className="
+                absolute left-0 top-1/2 -translate-y-1/2 transform
+                bg-white bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
+                hidden sm:flex items-center justify-center
+                hover:bg-opacity-100 transition-all duration-200 ease-in-out
+                ml-4 md:ml-8 lg:ml-12 {/* Adjusted to match the `gap-x` idea below */}
+              "
+              aria-label="Scroll left for sale"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            {/* Right Arrow Button for Sale - Adjusted mr- to account for *scroll container's* internal padding */}
+            <button
+              onClick={() => scroll(saleScrollContainerRef, 300)}
+              className="
+                absolute right-0 top-1/2 -translate-y-1/2 transform
+                bg-white bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
+                hidden sm:flex items-center justify-center
+                hover:bg-opacity-100 transition-all duration-200 ease-in-out
+                mr-4 md:mr-8 lg:mr-12 {/* Adjusted to match the `gap-x` idea below */}
+              "
+              aria-label="Scroll right for sale"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0A0908]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Horizontal Scroll Container for Sale Products - Using custom padding strategy */}
+            <div
+              ref={saleScrollContainerRef}
+              className="
+                flex space-x-6 pb-4 overflow-x-scroll no-scrollbar
+                snap-x snap-mandatory scroll-smooth
+                /* Custom padding at ends of scrollable content for tooltip space */
+                px-4 sm:px-6 md:px-8 lg:px-12
+                /* This creates space *inside* the scroll area without breaking snapping */
+              "
+            >
+              {onSaleProducts.map((product) => (
+                <div
+                  key={product.id}
+                  className="
+                    flex-shrink-0
+                    w-[calc(100vw-8rem)] sm:w-80 md:w-72
+                    snap-center
+                  "
+                >
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="text-center mt-10 px-4">
+            <Link
+              to="/catalog?sale=true"
+              className="inline-block bg-[#D6001A] text-[#F2F4F3] py-3 px-8 rounded-md text-lg font-medium hover:bg-[#0A0908] transition duration-300"
+            >
+              View All Sale Items
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* --- Brand Slider Section --- */}
-      {/* Reduced bottom margin for separation */}
-      <div className="mt-20 mb-12">
+      <div className="mb-0">
         <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
           Our Valued Brands
         </h2>
         <BrandSlider />
       </div>
-
     </div>
   );
 }
