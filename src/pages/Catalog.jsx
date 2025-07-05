@@ -14,13 +14,37 @@ export default function Catalog() {
   const [searchTerm, setSearchTerm] = useState(''); // State for search input
   const [sortOption, setSortOption] = useState('name-asc'); // State for sorting
 
+  // Simple custom hook for debouncing a value
+  function useDebounce(value, delay) {
+    const [debouncedValue, setDebouncedValue] = useState(value);
+
+    useEffect(() => {
+      const handler = setTimeout(() => {
+        setDebouncedValue(value);
+      }, delay);
+
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [value, delay]);
+
+    return debouncedValue;
+  }
+
   // Debounce search term for better performance (optional but good practice)
   const debouncedSearchTerm = useDebounce(searchTerm, 300);
+
+  useEffect(() => {
+    const urlSearchTerm = searchParams.get('search') || '';
+    setSearchTerm(urlSearchTerm); // Update the state and the input field's value
+  }, [searchParams]);
 
   useEffect(() => {
     // Get parameters from URL
     const category = searchParams.get('category') || 'all';
     const sale = searchParams.get('sale') === 'true';
+
+    const urlSearchTerm = searchParams.get('search');
 
     setActiveCategory(category); // Update active category for styling
 
@@ -71,22 +95,6 @@ export default function Catalog() {
     setFilteredFragrances(currentFragrances);
   }, [searchParams, debouncedSearchTerm, sortOption]); // Re-run effect when these dependencies change
 
-  // Simple custom hook for debouncing a value
-  function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
-
-    useEffect(() => {
-      const handler = setTimeout(() => {
-        setDebouncedValue(value);
-      }, delay);
-
-      return () => {
-        clearTimeout(handler);
-      };
-    }, [value, delay]);
-
-    return debouncedValue;
-  }
 
   // --- Function to handle category and sale filter updates ---
   const handleFilterChange = (filterType, value) => {
@@ -121,14 +129,15 @@ export default function Catalog() {
   return (
     <div className="bg-[#F2F4F3] min-h-screen flex flex-col">
 
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      {/* Increased horizontal padding from px-4 to px-8 for more margin */}
+      <main className="container mx-auto px-8 py-8 flex-grow">
         <h1 className="text-4xl font-bold text-[#0A0908] mb-8 text-center">
           Our Fragrance Collection
         </h1>
 
         {/* Category Filters - Now in its own centered block */}
         <div className="mb-6 flex flex-wrap justify-center gap-2"> {/* mb-6 for space below */}
-           {['all', 'men', 'women', 'unisex', 'sale'].map(category => (
+            {['all', 'men', 'women', 'unisex', 'sale'].map(category => (
             <button
               key={category}
               onClick={() => handleFilterChange(category === 'sale' ? 'sale' : 'category', category === 'sale' ? true : category)}

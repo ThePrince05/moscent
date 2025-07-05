@@ -1,10 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom'; // <--- IMPORTANT: Ensure NavLink is imported
 import { FiSearch, FiUser, FiShoppingCart, FiHeart, FiMenu } from 'react-icons/fi';
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
+  // Define your color palette for easy reference
+  const offWhite = '#F2F4F3';      // Primary Background, Text
+  const nearBlack = '#0A0908';     // Primary Text & Strongest Elements, Navbar/Footer background
+  const accentRed = '#D6001A';     // Accent for Impact & Navigation
+
+   const handleSearchSubmit = (e) => {
+    e.preventDefault(); // Prevent the form from reloading the page
+    if (searchQuery.trim()) {
+      // Navigate to the catalog page with the search query
+      navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery(''); // Optional: clear search bar after submitting
+    }
+  };
 
   return (
     // Navbar background: Near Black
@@ -30,17 +47,21 @@ export default function Navbar() {
 
           {/* CENTER: Search Bar */}
           <div className={`flex-1 mx-4 ${mobileSearchOpen ? '' : 'hidden md:flex'} max-w-3xl`}>
-            <form className="relative w-full ">
+            {/* --- MODIFY: Add onSubmit to the form --- */}
+            <form className="relative w-full" onSubmit={handleSearchSubmit}>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <FiSearch size={20} className="text-[#F2F4F3] opacity-60" /> {/* Search icon: Off-White with opacity */}
+                <FiSearch size={20} className="text-[#F2F4F3] opacity-60" />
               </div>
               <input
                 autoFocus
                 type="search"
                 placeholder="Search fragrances..."
+                // --- MODIFY: Link input to state ---
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full border border-[#F2F4F3]/20 rounded-full py-2 pl-10 pr-4 text-base
-                           placeholder-[#F2F4F3]/70 text-[#F2F4F3] bg-[#1A1A1A] /* Search input background slightly lighter black */
-                           focus:outline-none focus:ring-2 focus:ring-[#D6001A] focus:border-[#D6001A]" /* Focus: New Red Accent */
+                           placeholder-[#F2F4F3]/70 text-[#F2F4F3] bg-[#1A1A1A]
+                           focus:outline-none focus:ring-2 focus:ring-[#D6001A] focus:border-[#D6001A]"
               />
             </form>
           </div>
@@ -71,9 +92,9 @@ export default function Navbar() {
                 </Link>
               </div>
 
-              {/* Desktop-only icons */}
+              {/* Desktop-only icons and links */}
               <div className="hidden md:flex items-center space-x-6">
-                
+
                 <Link to="/favourites" aria-label="Favourites" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiHeart size={22} />
                 </Link>
@@ -105,6 +126,19 @@ export default function Navbar() {
         {/* Mobile menu */}
         {!mobileSearchOpen && menuOpen && (
           <div className="flex flex-col items-start space-y-4 mt-1 md:hidden">
+            {/* --- START ADDITION: CATALOG LINK FOR MOBILE --- */}
+            <NavLink
+              to="/catalog"
+              onClick={() => setMenuOpen(false)} // Close menu on click
+              className={({ isActive }) =>
+                `text-[#F2F4F3] hover:text-[#D6001A] ${
+                  isActive ? `text-[${accentRed}]` : ''
+                }`
+              }
+            >
+              Catalog
+            </NavLink>
+            {/* --- END ADDITION --- */}
             <Link to="/login" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
               Sign In / Sign Up
             </Link>
