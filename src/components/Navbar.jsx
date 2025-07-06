@@ -1,8 +1,10 @@
+// src/components/Navbar.jsx
 import { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom'; // <--- IMPORTANT: Ensure NavLink is imported
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FiSearch, FiUser, FiShoppingCart, FiHeart, FiMenu } from 'react-icons/fi';
 
-export default function Navbar() {
+// Receive cartItemCount AND favoriteItemCount as props
+export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Added favoriteItemCount with default
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
@@ -10,11 +12,11 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   // Define your color palette for easy reference
-  const offWhite = '#F2F4F3';      // Primary Background, Text
-  const nearBlack = '#0A0908';     // Primary Text & Strongest Elements, Navbar/Footer background
-  const accentRed = '#D6001A';     // Accent for Impact & Navigation
+  const offWhite = '#F2F4F3';       // Primary Background, Text
+  const nearBlack = '#0A0908';      // Primary Text & Strongest Elements, Navbar/Footer background
+  const accentRed = '#D6001A';      // Accent for Impact & Navigation
 
-   const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = (e) => {
     e.preventDefault(); // Prevent the form from reloading the page
     if (searchQuery.trim()) {
       // Navigate to the catalog page with the search query
@@ -47,7 +49,6 @@ export default function Navbar() {
 
           {/* CENTER: Search Bar */}
           <div className={`flex-1 mx-4 ${mobileSearchOpen ? '' : 'hidden md:flex'} max-w-3xl`}>
-            {/* --- MODIFY: Add onSubmit to the form --- */}
             <form className="relative w-full" onSubmit={handleSearchSubmit}>
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FiSearch size={20} className="text-[#F2F4F3] opacity-60" />
@@ -56,7 +57,6 @@ export default function Navbar() {
                 autoFocus
                 type="search"
                 placeholder="Search fragrances..."
-                // --- MODIFY: Link input to state ---
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full border border-[#F2F4F3]/20 rounded-full py-2 pl-10 pr-4 text-base
@@ -79,30 +79,45 @@ export default function Navbar() {
                 >
                   <FiSearch size={22} />
                 </button>
-                {/* Favourites */}
-                <Link to="/favourites" aria-label="Favourites" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                {/* Favourites - Mobile */}
+                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiHeart size={22} />
+                  {favoriteItemCount > 0 && ( // Only show bubble if count > 0
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Favorites bubble: New Red Accent background, Off-White text */}
+                      {favoriteItemCount}
+                    </span>
+                  )}
                 </Link>
-                {/* Cart */}
+                {/* Cart - Mobile */}
                 <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiShoppingCart size={22} />
-                  <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
-                    0
-                  </span>
+                  {cartItemCount > 0 && ( // Only show bubble if count > 0
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
+                      {cartItemCount}
+                    </span>
+                  )}
                 </Link>
               </div>
 
               {/* Desktop-only icons and links */}
               <div className="hidden md:flex items-center space-x-6">
-
-                <Link to="/favourites" aria-label="Favourites" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                {/* Favourites - Desktop */}
+                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiHeart size={22} />
+                  {favoriteItemCount > 0 && ( // Only show bubble if count > 0
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Favorites bubble: New Red Accent background, Off-White text */}
+                      {favoriteItemCount}
+                    </span>
+                  )}
                 </Link>
+                {/* Cart - Desktop */}
                 <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiShoppingCart size={22} />
-                  <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
-                    0
-                  </span>
+                  {cartItemCount > 0 && ( // Only show bubble if count > 0
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
+                      {cartItemCount}
+                    </span>
+                  )}
                 </Link>
                 <Link to="/login" aria-label="Account" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiUser size={22} />
@@ -126,7 +141,7 @@ export default function Navbar() {
         {/* Mobile menu */}
         {!mobileSearchOpen && menuOpen && (
           <div className="flex flex-col items-start space-y-4 mt-1 md:hidden">
-            {/* --- START ADDITION: CATALOG LINK FOR MOBILE --- */}
+            {/* Catalog Link for mobile */}
             <NavLink
               to="/catalog"
               onClick={() => setMenuOpen(false)} // Close menu on click
@@ -138,11 +153,10 @@ export default function Navbar() {
             >
               Catalog
             </NavLink>
-            {/* --- END ADDITION --- */}
             <Link to="/login" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
               Sign In / Sign Up
             </Link>
-            <Link to="/order" className="text-[#F2F4F3] hover:text-[#D6001A] pb-4"> {/* Text: Off-White, Hover: New Red Accent */}
+            <Link to="/orders" className="text-[#F2F4F3] hover:text-[#D6001A] pb-4"> {/* Corrected to /orders based on App.jsx route */}
               Orders
             </Link>
           </div>

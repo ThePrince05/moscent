@@ -1,6 +1,8 @@
 // src/components/ProductCard.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// Removed the import for FaShoppingCart as it's no longer used
+// Removed FaHeart as it's no longer used
 
 // Helper component for displaying stars
 const StarRating = ({ rating, numReviews, totalStars = 5 }) => {
@@ -29,7 +31,8 @@ const StarRating = ({ rating, numReviews, totalStars = 5 }) => {
 };
 
 
-export default function ProductCard({ product }) {
+// RECEIVE addToCart, toggleFavourite, and isFavouritedInitial AS PROPS HERE
+export default function ProductCard({ product, addToCart, toggleFavourite, isFavouritedInitial = false }) {
   // Destructure product properties
   const { id, name, brand, price, image, rating = 0, reviews = 0, discountedPrice, shortDescription, category } = product;
 
@@ -37,55 +40,35 @@ export default function ProductCard({ product }) {
   const isGenderCategory = ['men', 'women', 'unisex'].includes(category.toLowerCase());
 
   // State to manage the favourite status for this specific product
-  const [isFavourited, setIsFavourited] = useState(false);
+  const [isFavourited, setIsFavourited] = useState(isFavouritedInitial);
 
-  // Helper function to safely retrieve favourites from local storage
-  const getFavourites = () => {
-    try {
-      // Parse the JSON string from local storage, or default to an empty array
-      const favourites = JSON.parse(localStorage.getItem('moScentFavourites')) || [];
-      // Use a Set for faster lookups (checking if an ID exists) and to ensure unique IDs
-      return new Set(favourites);
-    } catch (error) {
-      console.error("Error parsing favourites from local storage:", error);
-      return new Set(); // Return an empty set on error to prevent crashing
-    }
-  };
-
-  // Helper function to safely save favourites to local storage
-  const saveFavourites = (favouritesSet) => {
-    try {
-      // Convert the Set back to an Array for JSON stringification
-      localStorage.setItem('moScentFavourites', JSON.stringify(Array.from(favouritesSet)));
-    } catch (error) {
-      console.error("Error saving favourites to local storage:", error);
-    }
-  };
-
-  // useEffect hook to check and set favourite status when the component mounts
-  // or when the product ID changes
+  // useEffect hook to update local favorite status when the prop changes
   useEffect(() => {
-    const favourites = getFavourites();
-    if (favourites.has(id)) {
-      setIsFavourited(true); // If product ID is found in favourites, set state to true
-    } else {
-      setIsFavourited(false); // Otherwise, ensure it's false (important for re-renders)
-    }
-  }, [id]); // Dependency array: Effect re-runs if 'id' changes
+    setIsFavourited(isFavouritedInitial);
+  }, [id, isFavouritedInitial]); // Dependency array: Effect re-runs if 'id' or 'isFavouritedInitial' changes
 
   // Event handler for toggling the favourite status
   const handleToggleFavourite = (e) => {
     e.preventDefault(); // Prevent the default action (e.g., navigating if inside a link)
     e.stopPropagation(); // Stop the event from bubbling up to parent elements (like the product link)
 
-    const favourites = getFavourites(); // Get current favourites
-    if (isFavourited) {
-      favourites.delete(id); // If already favourited, remove it
-    } else {
-      favourites.add(id); // If not favourited, add it
+    // Call the toggleFavourite function passed from the parent (App.jsx)
+    if (toggleFavourite) {
+      toggleFavourite(id);
     }
-    saveFavourites(favourites); // Save the updated list back to local storage
-    setIsFavourited(!isFavourited); // Toggle the local state for immediate UI update
+    // Optimistically update local state for immediate UI feedback
+    setIsFavourited(prev => !prev);
+  };
+
+  // ADD THIS FUNCTION TO HANDLE ADD TO CART
+  const handleAddToCartClick = (e) => { // Renamed to avoid confusion with the prop
+    e.preventDefault(); // Prevent default link behavior if button is inside a Link
+    e.stopPropagation(); // Stop event bubbling up to the product card link
+    if (addToCart) { // Check if addToCart prop is provided
+      addToCart(product);
+    } else {
+      console.warn("addToCart function not provided to ProductCard.");
+    }
   };
 
   return (
@@ -159,9 +142,9 @@ export default function ProductCard({ product }) {
             </p>
             {/* Tooltip for Short Description */}
             <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 w-max max-w-sm
-                                   bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
-                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
-                                   pointer-events-none">
+                                     bg-[#0A0908] text-[#F2F4F3] text-sm p-2 rounded-md shadow-lg
+                                     opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-50
+                                     pointer-events-none">
               {shortDescription}
             </div>
           </div>
@@ -186,7 +169,10 @@ export default function ProductCard({ product }) {
             <p className="text-xl font-bold text-[#0A0908] mb-3">R{price.toFixed(2)}</p>
           )}
           {/* Add to Cart Button */}
-          <button className="w-full bg-[#0A0908] text-[#F2F4F3] py-2 px-4 rounded-md hover:bg-[#D6001A] transition duration-300 text-base font-medium">
+          <button
+            onClick={handleAddToCartClick}
+            className="w-full bg-[#0A0908] text-[#F2F4F3] py-2 px-4 rounded-md hover:bg-[#D6001A] transition duration-300 text-base font-medium"
+          >
             Add to Cart
           </button>
         </div>

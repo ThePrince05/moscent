@@ -5,7 +5,8 @@ import ProductCard from '../components/ProductCard'; // Import your ProductCard
 import fragrances from '../data/fragrances'; // Import your fragrance mock data
 import BrandSlider from '../components/BrandSlider'; // Import the BrandSlider component
 
-export default function Home() {
+// MODIFIED: Accept addToCart, toggleFavourite, and favoriteProductIds as props
+export default function Home({ addToCart, toggleFavourite, favoriteProductIds }) {
   const trendingProducts = fragrances.slice(10, 15);
   const trendingScrollContainerRef = useRef(null);
   const saleScrollContainerRef = useRef(null);
@@ -73,14 +74,13 @@ export default function Home() {
       </section>
 
       {/* --- Trending Fragrances Section --- */}
-      {/* Reverted section px- to smaller values for general section padding */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 relative">
         <h2 className="text-3xl font-bold text-center text-[#0A0908] mb-8 px-4">
           Trending Fragrances
         </h2>
 
         <div className="relative">
-          {/* Left Arrow Button - Adjusted ml- to account for *scroll container's* internal padding */}
+          {/* Left Arrow Button */}
           <button
             onClick={() => scroll(trendingScrollContainerRef, -300)}
             className="
@@ -88,7 +88,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              ml-4 md:ml-8 lg:ml-12 {/* Adjusted to match the `gap-x` idea below */}
+              ml-4 md:ml-8 lg:ml-12
             "
             aria-label="Scroll left"
           >
@@ -97,7 +97,7 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Right Arrow Button - Adjusted mr- to account for *scroll container's* internal padding */}
+          {/* Right Arrow Button */}
           <button
             onClick={() => scroll(trendingScrollContainerRef, 300)}
             className="
@@ -105,7 +105,7 @@ export default function Home() {
               bg-[#F2F4F3] bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
               hidden sm:flex items-center justify-center
               hover:bg-opacity-100 transition-all duration-200 ease-in-out
-              mr-4 md:mr-8 lg:mr-12 {/* Adjusted to match the `gap-x` idea below */}
+              mr-4 md:mr-8 lg:mr-12
             "
             aria-label="Scroll right"
           >
@@ -114,15 +114,13 @@ export default function Home() {
             </svg>
           </button>
 
-          {/* Horizontal Scroll Container for Trending - Using custom padding strategy */}
+          {/* Horizontal Scroll Container for Trending */}
           <div
             ref={trendingScrollContainerRef}
             className="
               flex space-x-6 pb-4 overflow-x-scroll no-scrollbar
               snap-x snap-mandatory scroll-smooth
-              /* Custom padding at ends of scrollable content for tooltip space */
               px-4 sm:px-6 md:px-8 lg:px-12
-              /* This creates space *inside* the scroll area without breaking snapping */
             "
           >
             {trendingProducts.map((product) => (
@@ -134,7 +132,12 @@ export default function Home() {
                   snap-center
                 "
               >
-                <ProductCard product={product} />
+                <ProductCard
+                  product={product}
+                  addToCart={addToCart} // MODIFIED: Pass addToCart prop
+                  toggleFavourite={toggleFavourite} // MODIFIED: Pass toggleFavourite prop
+                  isFavouritedInitial={favoriteProductIds.has(product.id)} // MODIFIED: Pass initial favorite status
+                />
               </div>
             ))}
           </div>
@@ -157,7 +160,7 @@ export default function Home() {
           </h2>
 
           <div className="relative">
-            {/* Left Arrow Button for Sale - Adjusted ml- to account for *scroll container's* internal padding */}
+            {/* Left Arrow Button for Sale */}
             <button
               onClick={() => scroll(saleScrollContainerRef, -300)}
               className="
@@ -165,7 +168,7 @@ export default function Home() {
                 bg-white bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
                 hidden sm:flex items-center justify-center
                 hover:bg-opacity-100 transition-all duration-200 ease-in-out
-                ml-4 md:ml-8 lg:ml-12 {/* Adjusted to match the `gap-x` idea below */}
+                ml-4 md:ml-8 lg:ml-12
               "
               aria-label="Scroll left for sale"
             >
@@ -174,7 +177,7 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* Right Arrow Button for Sale - Adjusted mr- to account for *scroll container's* internal padding */}
+            {/* Right Arrow Button for Sale */}
             <button
               onClick={() => scroll(saleScrollContainerRef, 300)}
               className="
@@ -182,7 +185,7 @@ export default function Home() {
                 bg-white bg-opacity-75 p-2 rounded-full shadow-md z-10 cursor-pointer
                 hidden sm:flex items-center justify-center
                 hover:bg-opacity-100 transition-all duration-200 ease-in-out
-                mr-4 md:mr-8 lg:mr-12 {/* Adjusted to match the `gap-x` idea below */}
+                mr-4 md:mr-8 lg:mr-12
               "
               aria-label="Scroll right for sale"
             >
@@ -191,15 +194,13 @@ export default function Home() {
               </svg>
             </button>
 
-            {/* Horizontal Scroll Container for Sale Products - Using custom padding strategy */}
+            {/* Horizontal Scroll Container for Sale Products */}
             <div
               ref={saleScrollContainerRef}
               className="
                 flex space-x-6 pb-4 overflow-x-scroll no-scrollbar
                 snap-x snap-mandatory scroll-smooth
-                /* Custom padding at ends of scrollable content for tooltip space */
                 px-4 sm:px-6 md:px-8 lg:px-12
-                /* This creates space *inside* the scroll area without breaking snapping */
               "
             >
               {onSaleProducts.map((product) => (
@@ -211,7 +212,12 @@ export default function Home() {
                     snap-center
                   "
                 >
-                  <ProductCard product={product} />
+                  <ProductCard
+                    product={product}
+                    addToCart={addToCart} // MODIFIED: Pass addToCart prop
+                    toggleFavourite={toggleFavourite} // MODIFIED: Pass toggleFavourite prop
+                    isFavouritedInitial={favoriteProductIds.has(product.id)} // MODIFIED: Pass initial favorite status
+                  />
                 </div>
               ))}
             </div>
