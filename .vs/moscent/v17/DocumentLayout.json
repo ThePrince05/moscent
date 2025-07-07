@@ -1,7 +1,20 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\Cart.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\Cart.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminOrders.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\AdminOrders.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminDashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\pages\\AdminDashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,6 +55,45 @@
             {
               "$type": "Bookmark",
               "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cart.jsx",
+              "DocumentMoniker": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\Cart.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\Cart.jsx",
+              "ToolTip": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\Cart.jsx",
+              "RelativeToolTip": "src\\pages\\Cart.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-07-07T03:02:51.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AdminOrders.jsx",
+              "DocumentMoniker": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminOrders.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\AdminOrders.jsx",
+              "ToolTip": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminOrders.jsx",
+              "RelativeToolTip": "src\\pages\\AdminOrders.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-07-07T03:02:24.671Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminDashboard.jsx",
+              "DocumentMoniker": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminDashboard.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\AdminDashboard.jsx",
+              "ToolTip": "D:\\Videos\\Project Videos\\Website\\React\\Mo\u0027Scent\\Website\\moscent\\src\\pages\\AdminDashboard.jsx",
+              "RelativeToolTip": "src\\pages\\AdminDashboard.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2025-07-07T03:02:14.552Z",
+              "EditorCaption": ""
             }
           ]
         }

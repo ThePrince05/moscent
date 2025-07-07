@@ -111,8 +111,7 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart }) { //
           </div>
         )}
       </main>
-      {/* If your App.jsx always renders Footer, this is redundant and can be removed. */}
-      {/* <Footer /> */}
+     
     </div>
   );
 }

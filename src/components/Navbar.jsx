@@ -1,10 +1,11 @@
 // src/components/Navbar.jsx
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FiSearch, FiUser, FiShoppingCart, FiHeart, FiMenu } from 'react-icons/fi';
+// Imported FiPackage for the Orders icon
+import { FiSearch, FiUser, FiShoppingCart, FiHeart, FiMenu, FiPackage } from 'react-icons/fi';
 
 // Receive cartItemCount AND favoriteItemCount as props
-export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Added favoriteItemCount with default
+export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
@@ -12,9 +13,9 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Ad
   const navigate = useNavigate();
 
   // Define your color palette for easy reference
-  const offWhite = '#F2F4F3';       // Primary Background, Text
-  const nearBlack = '#0A0908';      // Primary Text & Strongest Elements, Navbar/Footer background
-  const accentRed = '#D6001A';      // Accent for Impact & Navigation
+  const offWhite = '#F2F4F3';        // Primary Background, Text
+  const nearBlack = '#0A0908';       // Primary Text & Strongest Elements, Navbar/Footer background
+  const accentRed = '#D6001A';       // Accent for Impact & Navigation
 
   const handleSearchSubmit = (e) => {
     e.preventDefault(); // Prevent the form from reloading the page
@@ -97,6 +98,10 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Ad
                     </span>
                   )}
                 </Link>
+                {/* NEW: Orders Icon for Mobile (optional, but consistent with other mobile icons) */}
+                <Link to="/orders" aria-label="Orders" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
+                    <FiPackage size={22} />
+                </Link>
               </div>
 
               {/* Desktop-only icons and links */}
@@ -118,6 +123,10 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Ad
                       {cartItemCount}
                     </span>
                   )}
+                </Link>
+                {/* NEW: Orders Icon for Desktop */}
+                <Link to="/orders" aria-label="Orders" className="text-[#F2F4F3] hover:text-[#D6001A]">
+                  <FiPackage size={22} />
                 </Link>
                 <Link to="/login" aria-label="Account" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
                   <FiUser size={22} />
@@ -153,11 +162,12 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) { // Ad
             >
               Catalog
             </NavLink>
+            {/* The Orders link was already here in your provided code, so it remains! */}
+            <Link to="/orders" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Removed unnecessary pb-4 */}
+              Orders
+            </Link>
             <Link to="/login" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
               Sign In / Sign Up
-            </Link>
-            <Link to="/orders" className="text-[#F2F4F3] hover:text-[#D6001A] pb-4"> {/* Corrected to /orders based on App.jsx route */}
-              Orders
             </Link>
           </div>
         )}

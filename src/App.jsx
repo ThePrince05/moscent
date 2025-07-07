@@ -13,9 +13,7 @@ import Orders from './pages/Orders'; // Your existing Orders page
 import AdminDashboard from './pages/AdminDashboard'; // Your existing Admin Dashboard
 import AdminOrders from './pages/AdminOrders'; // Your existing Admin Orders
 import Footer from './components/Footer';
-
-// Not needed for Phase 1 as we're lifting state
-// import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from './components/ScrollToTop'; // Import the ScrollToTop component
 
 function App() {
   // State for the shopping cart
@@ -116,8 +114,8 @@ function App() {
 
   return (
     <Router>
-      {/* ScrollToTop is good, but for now focusing on cart. Can add back later if needed. */}
-      {/* <ScrollToTop /> */}
+      {/* ScrollToTop component ensures the page scrolls to the top on route changes */}
+      <ScrollToTop /> 
 
       <div className="flex flex-col min-h-screen">
         {/* Pass the total number of items in the cart AND favorites to the Navbar */}
