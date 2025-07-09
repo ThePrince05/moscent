@@ -1,28 +1,41 @@
 // src/components/Navbar.jsx
 import { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-// Imported FiPackage for the Orders icon
 import { FiSearch, FiUser, FiShoppingCart, FiHeart, FiMenu, FiPackage } from 'react-icons/fi';
+import { useAuth } from '../context/AuthContext'; // Import the useAuth hook
 
 // Receive cartItemCount AND favoriteItemCount as props
 export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
-  // Define your color palette for easy reference
-  const offWhite = '#F2F4F3';        // Primary Background, Text
-  const nearBlack = '#0A0908';       // Primary Text & Strongest Elements, Navbar/Footer background
-  const accentRed = '#D6001A';       // Accent for Impact & Navigation
+  // Use the useAuth hook to get the current user and logout function
+  const { currentUser, logout } = useAuth();
+
+  // Define your color palette for easy reference (as per your original code)
+  const offWhite = '#F2F4F3';        // Primary Background, Text [cite: 2025-07-02]
+  const nearBlack = '#0A0908';       // Primary Text & Strongest Elements, Navbar/Footer background [cite: 2025-07-02]
+  const accentRed = '#D6001A';       // Accent for Impact & Navigation [cite: 2025-07-02]
 
   const handleSearchSubmit = (e) => {
     e.preventDefault(); // Prevent the form from reloading the page
     if (searchQuery.trim()) {
-      // Navigate to the catalog page with the search query
       navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
       setSearchQuery(''); // Optional: clear search bar after submitting
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/auth'); // Redirect to the authentication page after logout
+      setMenuOpen(false); // Close mobile menu if open
+      console.log("User logged out successfully.");
+    } catch (error) {
+      console.error("Failed to log out:", error);
+      // Optionally, show a user-friendly error message
     }
   };
 
@@ -70,67 +83,94 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
           {/* RIGHT: Icons (hidden when search is open) and Close button (shown only when search open) */}
           {!mobileSearchOpen ? (
             <div className="flex items-center space-x-4">
-              {/* Mobile-only icons */}
+              {/* Mobile-only icons (excluding FiUser) */}
               <div className="flex items-center space-x-4 md:hidden">
                 {/* Search */}
                 <button
                   onClick={() => setMobileSearchOpen(true)}
-                  className="text-[#F2F4F3] hover:text-[#D6001A]" // Text: Off-White, Hover: New Red Accent
+                  className="text-[#F2F4F3] hover:text-[#D6001A]"
                   aria-label="Open Search"
                 >
                   <FiSearch size={22} />
                 </button>
                 {/* Favourites - Mobile */}
-                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
                   <FiHeart size={22} />
-                  {favoriteItemCount > 0 && ( // Only show bubble if count > 0
-                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Favorites bubble: New Red Accent background, Off-White text */}
+                  {favoriteItemCount > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center">
                       {favoriteItemCount}
                     </span>
                   )}
                 </Link>
                 {/* Cart - Mobile */}
-                <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
                   <FiShoppingCart size={22} />
-                  {cartItemCount > 0 && ( // Only show bubble if count > 0
-                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center">
                       {cartItemCount}
                     </span>
                   )}
                 </Link>
-                {/* NEW: Orders Icon for Mobile (optional, but consistent with other mobile icons) */}
-                <Link to="/orders" aria-label="Orders" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
+                {/* Orders Icon for Mobile - HIDDEN IF NOT LOGGED IN */}
+                {currentUser && (
+                  <Link to="/orders" aria-label="Orders" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
                     <FiPackage size={22} />
-                </Link>
+                  </Link>
+                )}
               </div>
 
               {/* Desktop-only icons and links */}
               <div className="hidden md:flex items-center space-x-6">
                 {/* Favourites - Desktop */}
-                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                <Link to="/favorites" aria-label="Favourites" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
                   <FiHeart size={22} />
-                  {favoriteItemCount > 0 && ( // Only show bubble if count > 0
-                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Favorites bubble: New Red Accent background, Off-White text */}
+                  {favoriteItemCount > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center">
                       {favoriteItemCount}
                     </span>
                   )}
                 </Link>
                 {/* Cart - Desktop */}
-                <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
+                <Link to="/cart" aria-label="Cart" className="relative text-[#F2F4F3] hover:text-[#D6001A]">
                   <FiShoppingCart size={22} />
-                  {cartItemCount > 0 && ( // Only show bubble if count > 0
-                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center"> {/* Cart bubble: New Red Accent background, Off-White text */}
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-2 -right-3 bg-[#D6001A] text-[#F2F4F3] rounded-full text-xs w-5 h-5 flex items-center justify-center">
                       {cartItemCount}
                     </span>
                   )}
                 </Link>
-                {/* NEW: Orders Icon for Desktop */}
-                <Link to="/orders" aria-label="Orders" className="text-[#F2F4F3] hover:text-[#D6001A]">
-                  <FiPackage size={22} />
-                </Link>
-                <Link to="/login" aria-label="Account" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
-                  <FiUser size={22} />
-                </Link>
+                {/* Orders Icon for Desktop - HIDDEN IF NOT LOGGED IN */}
+                {currentUser && (
+                  <Link to="/orders" aria-label="Orders" className="text-[#F2F4F3] hover:text-[#D6001A]">
+                    <FiPackage size={22} />
+                  </Link>
+                )}
+
+                {/* Conditional Account/Logout for Desktop */}
+                {currentUser ? (
+                  <>
+                    {/* User Icon/Link to My Account - UPDATED PATH */}
+                    <Link to="/my-account" className="text-[#F2F4F3] hover:text-[#D6001A]" aria-label="My Account">
+                       <FiUser size={22} />
+                    </Link>
+                    {/* Display user email and Logout button */}
+                    <span className="text-[#F2F4F3] text-sm hidden lg:inline-block">
+                        {currentUser.email}
+                    </span>
+                    <button
+                      onClick={handleLogout}
+                      className={`bg-[#D6001A] text-[#F2F4F3] px-3 py-1.5 rounded-md text-sm hover:bg-red-700 transition-colors duration-200`}
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  // User is not logged in - Desktop
+                  // This is the FiUser icon on desktop when not logged in
+                  <Link to="/auth" aria-label="Account" className="text-[#F2F4F3] hover:text-[#D6001A]">
+                    <FiUser size={22} />
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -138,7 +178,7 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
             <div className="md:hidden">
               <button
                 onClick={() => setMobileSearchOpen(false)}
-                className="text-[#F2F4F3] font-medium hover:text-[#D6001A]" // Text: Off-White, Hover: New Red Accent
+                className="text-[#F2F4F3] font-medium hover:text-[#D6001A]"
                 aria-label="Close search"
               >
                 Close
@@ -147,13 +187,32 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
           )}
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu (Hamburger expanded) */}
         {!mobileSearchOpen && menuOpen && (
-          <div className="flex flex-col items-start space-y-4 mt-1 md:hidden">
-            {/* Catalog Link for mobile */}
+          <div className="flex flex-col items-start space-y-4 mt-1 pb-4 md:hidden">
+            {/* Conditional Sign In / Sign Up / My Account / Logout for Mobile Menu - UPDATED PATH */}
+            {currentUser ? (
+              <>
+                <Link to="/my-account" onClick={() => setMenuOpen(false)} className="text-[#F2F4F3] hover:text-[#D6001A]">
+                  My Account
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="text-[#F2F4F3] hover:text-[#D6001A] font-medium"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link to="/auth" onClick={() => setMenuOpen(false)} className="text-[#F2F4F3] hover:text-[#D6001A]">
+                Sign In / Sign Up
+              </Link>
+            )}
+
+            {/* Catalog Link for mobile (moved after login/account options) */}
             <NavLink
               to="/catalog"
-              onClick={() => setMenuOpen(false)} // Close menu on click
+              onClick={() => setMenuOpen(false)}
               className={({ isActive }) =>
                 `text-[#F2F4F3] hover:text-[#D6001A] ${
                   isActive ? `text-[${accentRed}]` : ''
@@ -162,13 +221,12 @@ export default function Navbar({ cartItemCount, favoriteItemCount = 0 }) {
             >
               Catalog
             </NavLink>
-            {/* The Orders link was already here in your provided code, so it remains! */}
-            <Link to="/orders" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Removed unnecessary pb-4 */}
-              Orders
-            </Link>
-            <Link to="/login" className="text-[#F2F4F3] hover:text-[#D6001A]"> {/* Text: Off-White, Hover: New Red Accent */}
-              Sign In / Sign Up
-            </Link>
+            {/* Orders link for mobile menu - HIDDEN IF NOT LOGGED IN (moved after login/account options) */}
+            {currentUser && (
+              <Link to="/orders" onClick={() => setMenuOpen(false)} className="text-[#F2F4F3] hover:text-[#D6001A]">
+                Orders
+              </Link>
+            )}
           </div>
         )}
       </div>

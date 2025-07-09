@@ -20,6 +20,7 @@ export default {
         'primary-background': '#F2F4F3',
         'primary-text': '#0A0908',
         'accent-red': '#D6001A',
+        'darker-red': '#A30013',
         // Assuming this is your star rating color
         'star-red': '#E00000',
       }

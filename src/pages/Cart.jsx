@@ -1,23 +1,45 @@
 // src/pages/Cart.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-// Removed Footer import and usage, assuming App.jsx handles it globally for cleaner structure
 
-export default function Cart({ cartItems, updateQuantity, removeFromCart }) { // Renamed from CartPage to Cart
+export default function Cart({ cartItems, updateQuantity, removeFromCart, clearCart }) {
   // Your color palette from saved information
-  const primaryBackground = '#F2F4F3'; // Off-White/Light Gray
-  const primaryText = '#0A0908';       // Near Black
-  const accentRed = '#D6001A';         // A vibrant, modern red
+  const primaryBackground = '#F2F4F3'; // Off-White/Light Gray [cite: 2025-07-02]
+  const primaryText = '#0A0908';       // Near Black [cite: 2025-07-02]
+  const accentRed = '#D6001A';         // A vibrant, modern red [cite: 2025-07-02]
+
+  // Helper function to safely get item properties with default values
+  const getItemProperty = (item, propName, defaultValue = '') => {
+    if (item.product && item.product[propName] !== undefined) {
+      return item.product[propName];
+    }
+    if (item[propName] !== undefined) {
+      return item[propName];
+    }
+    return defaultValue;
+  };
 
   // Calculate subtotal
   const subtotal = cartItems.reduce((acc, item) => {
-    const itemPrice = item.product.discountedPrice || item.product.price;
-    return acc + (itemPrice * item.quantity);
+    const price = parseFloat(getItemProperty(item, 'price', 0));
+    const discountedPrice = parseFloat(getItemProperty(item, 'discountedPrice', 0));
+    const itemPrice = discountedPrice || price;
+
+    const quantity = item.quantity;
+
+    if (!isNaN(itemPrice) && !isNaN(quantity)) {
+      return acc + (itemPrice * quantity);
+    }
+    return acc;
   }, 0);
+
+  const handleCheckout = () => {
+    alert('Proceeding to checkout (Phase 2 feature - Stripe integration coming soon!)'); // This will be integrated with Stripe in Phase 2 [cite: 2025-06-26, 2025-07-06]
+    // clearCart();
+  };
 
   return (
     <div className={`bg-[${primaryBackground}] min-h-screen flex flex-col`}>
-      {/* Header (Navbar) is rendered by App.jsx, not directly within pages. */}
       <main className="container mx-auto px-4 py-8 flex-grow">
         <h1 className={`text-4xl font-bold text-[${primaryText}] mb-8 text-center`}>
           Your Shopping Cart
@@ -32,37 +54,50 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart }) { //
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Cart Items List */}
-            <div className="md:col-span-2 bg-white p-6 rounded-lg shadow-md">
-              {cartItems.map(item => {
-                const cartItemKey = item.selectedSize ? `${item.product.id}-${item.selectedSize}` : item.product.id;
-                const itemPrice = item.product.discountedPrice || item.product.price;
+            {/* Cart Items List Container */}
+            {/* The py-6 on this container should provide consistent padding around the items. */}
+            <div className="md:col-span-2 bg-white px-6 py-6 rounded-lg shadow-md">
+              {cartItems.map((item, index) => {
+                const currentProductId = getItemProperty(item, 'productId', getItemProperty(item, 'id'));
+                const currentSelectedSize = item.selectedSize;
+                const cartItemKey = currentSelectedSize ? `${currentProductId}-${currentSelectedSize}` : currentProductId;
+                const itemPrice = parseFloat(getItemProperty(item, 'discountedPrice', getItemProperty(item, 'price', 0)));
+                const imageUrl = getItemProperty(item, 'imageUrl') || getItemProperty(item, 'image') || 'https://via.placeholder.com/96x96?text=No+Image';
 
                 return (
-                  <div key={cartItemKey} className="flex items-center border-b border-gray-200 py-4 last:border-b-0">
-                    <Link to={`/product/${item.product.id}`} className="flex-shrink-0 mr-4">
+                  <div
+                    key={item.id || cartItemKey}
+                    // Apply border-b only if it's not the last item
+                    // Apply consistent top margin to all items except the first
+                    className={`flex items-center py-4
+                      ${index > 0 ? 'mt-4' : ''}
+                      ${index < cartItems.length - 1 ? 'border-b border-gray-200' : ''}
+                    `}
+                  >
+                    <Link to={`/product/${currentProductId}`} className="flex-shrink-0 mr-4">
                       <img
-                        src={item.product.image}
-                        alt={item.product.name}
-                        className="w-24 h-24 object-contain rounded-md"
+                        src={imageUrl}
+                        alt={getItemProperty(item, 'name', 'Product Image')}
+                        className="w-24 h-24 object-contain rounded-md border border-gray-200"
                       />
                     </Link>
                     <div className="flex-grow">
-                      <Link to={`/product/${item.product.id}`} className={`text-lg font-semibold text-[${primaryText}] hover:text-[${accentRed}] transition-colors`}>
-                        {item.product.name}
+                      <Link to={`/product/${currentProductId}`} className={`text-lg font-semibold text-[${primaryText}] hover:text-[${accentRed}] transition-colors`}>
+                        {getItemProperty(item, 'name', 'Unknown Product')}
                       </Link>
                       <p className="text-gray-500 text-sm">
-                          {item.product.brand} {item.selectedSize ? `(${item.selectedSize}ml)` : ''}
+                        {getItemProperty(item, 'brand', 'N/A')} {currentSelectedSize ? `(${currentSelectedSize}ml)` : ''}
                       </p>
                       <p className={`text-lg font-bold text-[${primaryText}] mt-1`}>
-                        R{(itemPrice * item.quantity).toFixed(2)}
+                        R{(!isNaN(itemPrice) && !isNaN(item.quantity) ? (itemPrice * item.quantity).toFixed(2) : '0.00')}
                       </p>
                     </div>
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => updateQuantity(cartItemKey, item.quantity - 1)}
-                        className={`px-3 py-1 border border-gray-300 rounded-md text-[${primaryText}] hover:bg-gray-100`}
+                        className={`px-3 py-1 border border-gray-300 rounded-md text-[${primaryText}] hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed`}
                         aria-label="Decrease quantity"
+                        disabled={item.quantity <= 1}
                       >
                         -
                       </button>
@@ -102,7 +137,7 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart }) { //
                 <span>Calculated at checkout</span>
               </div>
               <button
-                onClick={() => alert('Proceeding to checkout (Phase 2 feature!)')}
+                onClick={handleCheckout}
                 className={`w-full bg-[${accentRed}] text-[${primaryBackground}] font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity mt-4`}
               >
                 Proceed to Checkout
@@ -111,7 +146,6 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart }) { //
           </div>
         )}
       </main>
-     
     </div>
   );
 }

@@ -44,7 +44,6 @@ export default function Favorites({ addToCart, toggleFavourite, favoriteProductI
           </div>
         )}
       </main>
-      <Footer />
     </div>
   );
 }
