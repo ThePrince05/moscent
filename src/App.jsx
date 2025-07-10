@@ -31,10 +31,12 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminOrders from './pages/AdminOrders';
 import Auth from './pages/Auth';
 import MyAccount from './pages/MyAccount'; 
-import ShippingAddresses from './pages/Account/ShippingAddresses'; // Import the new ShippingAddresses component
+import ShippingAddresses from './pages/Account/ShippingAddresses'; 
+import PersonalDetails from './pages/Account/PersonalDetails';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChangePassword from './pages/Account/ChangePassword';
 
 function App() {
   // --- AUTHENTICATION & LOADING STATES ---
@@ -624,10 +626,26 @@ function App() {
               }
             />
             <Route
-              path="/account/Shipping-addresses"
+              path="/account/shipping-addresses"
               element={
                 <ProtectedRoute>
                   <ShippingAddresses />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/personal-details"
+              element={
+                <ProtectedRoute>
+                  <PersonalDetails />
+                </ProtectedRoute>
+              }
+            />
+             <Route
+              path="/account/change-password"
+              element={
+                <ProtectedRoute>
+                  <ChangePassword/>
                 </ProtectedRoute>
               }
             />
