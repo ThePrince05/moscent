@@ -1,6 +1,7 @@
 // src/pages/Account/ShippingAddresses.jsx
 import React, { useState, useEffect } from 'react';
-import { FiPlus, FiEdit, FiTrash2, FiSave, FiXCircle, FiCheckCircle } from 'react-icons/fi'; // Added FiCheckCircle
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { FiPlus, FiEdit, FiTrash2, FiSave, FiXCircle, FiCheckCircle, FiArrowLeft } from 'react-icons/fi'; // Added FiCheckCircle, FiArrowLeft
 import { collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, writeBatch } from 'firebase/firestore'; // Added writeBatch
 import { db } from '../../firebaseConfig';
 import { useAuth } from '../../context/AuthContext';
@@ -10,6 +11,7 @@ import { toTitleCase } from '../../utils/stringFormatters';
 
 export default function ShippingAddresses() {
   const { currentUser } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -315,13 +317,13 @@ export default function ShippingAddresses() {
 
         {!loading && !error && !showForm && (
           <div className="flex justify-end mb-6">
-            <button
-              onClick={handleAddAddressClick}
-              className={`flex items-center bg-[${accentRed}] text-[${offWhite}] px-6 py-2 rounded-md font-semibold
-                         hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[${accentRed}]`}
-            >
-              <FiPlus className="mr-2" /> Add New Address
-            </button>
+           <button
+            onClick={handleAddAddressClick}
+            className={`w-full sm:w-auto flex items-center justify-center bg-transparent border-2 border-[#D6001A] text-[#D6001A] px-8 py-3 rounded-md text-lg font-semibold
+                        hover:bg-[#D6001A] hover:text-[#F2F4F3] transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D6001A] group`}
+          >
+            <FiPlus size={20} className="mr-2 group-hover:text-[#F2F4F3]" /> Add New Address
+          </button>
           </div>
         )}
 
@@ -448,6 +450,21 @@ export default function ShippingAddresses() {
             ))}
           </div>
         )}
+
+        {/* Back to Account Button - Added here */}
+        <div className="flex justify-center mt-8">
+          <button
+            type="button"
+            onClick={() => navigate('/my-account')}
+            className={`w-full sm:w-auto px-10 py-3 rounded-lg font-semibold flex items-center justify-center
+                        bg-white text-[${nearBlack}] border border-gray-300
+                        hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400`}
+            aria-label="Back to account details"
+          >
+            <FiArrowLeft size={20} className="mr-2 flex-shrink-0" /> Back to Account
+          </button>
+        </div>
+
       </div>
     </div>
   );

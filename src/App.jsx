@@ -37,6 +37,7 @@ import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import ChangePassword from './pages/Account/ChangePassword';
+import ChangeEmail from './pages/Account/ChangeEmail';
 
 function App() {
   // --- AUTHENTICATION & LOADING STATES ---
@@ -646,6 +647,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ChangePassword/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/account/change-email"
+              element={
+                <ProtectedRoute>
+                  <ChangeEmail/>
                 </ProtectedRoute>
               }
             />

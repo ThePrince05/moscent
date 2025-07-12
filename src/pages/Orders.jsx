@@ -1,19 +1,27 @@
 // src/pages/Orders.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
 import orders from '../data/orders'; // Import the mock orders data
+import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
 
 export default function Orders() {
+  const navigate = useNavigate(); // Initialize useNavigate hook
+
+  // Define your color palette for consistent styling
+  const offWhite = '#F2F4F3';
+  const nearBlack = '#0A0908';
+  const accentRed = '#D6001A';
+
   // Sort orders by date in descending order (most recent first)
   const sortedOrders = [...orders].sort((a, b) => new Date(b.date) - new Date(a.date));
 
   return (
-    <div className="bg-[#F2F4F3] min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className={`bg-[${offWhite}] min-h-screen py-8 px-4 sm:px-6 lg:px-8 font-sans`}>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-extrabold text-[#0A0908] mb-10 text-center">Your Orders</h1>
+        <h1 className={`text-4xl font-extrabold text-[${nearBlack}] mb-10 text-center`}>Your Orders</h1>
 
         {sortedOrders.length === 0 ? (
-          <p className="text-center text-xl text-[#0A0908]">You haven't placed any orders yet.</p>
+          <p className={`text-center text-xl text-[${nearBlack}]`}>You haven't placed any orders yet.</p>
         ) : (
           <div className="space-y-6">
             {sortedOrders.map((order) => (
@@ -24,11 +32,11 @@ export default function Orders() {
                 {/* Order Header */}
                 <div className="bg-gray-50 p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-200">
                   <div>
-                    <h2 className="text-lg font-semibold text-[#0A0908] mb-1">Order ID: {order.id}</h2>
+                    <h2 className={`text-lg font-semibold text-[${nearBlack}] mb-1`}>Order ID: {order.id}</h2>
                     <p className="text-sm text-gray-600">Date: {order.date}</p>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:text-right">
-                    <p className="text-lg font-bold text-[#0A0908]">Total: R{order.total.toFixed(2)}</p>
+                    <p className={`text-lg font-bold text-[${nearBlack}]`}>Total: R{order.total.toFixed(2)}</p>
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                       order.status === 'Delivered' ? 'bg-green-100 text-green-800' :
                       order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
@@ -42,12 +50,11 @@ export default function Orders() {
 
                 {/* Order Items */}
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold text-[#0A0908] mb-3 border-b border-gray-300 pb-2">Items</h3>
+                  <h3 className={`text-xl font-semibold text-[${nearBlack}] mb-3 border-b border-gray-300 pb-2`}>Items</h3>
                   <div className="space-y-3">
                     {order.items.map((item) => (
-                      // MODIFIED: Wrap the item div with Link
                       <Link
-                        to={`/product/${item.productId}`} // Link to the product detail page
+                        to={`/product/${item.productId}`}
                         key={item.productId}
                         className="flex items-center space-x-3 p-2 -mx-2 rounded-md transition-colors duration-150 hover:bg-gray-50"
                       >
@@ -58,11 +65,11 @@ export default function Orders() {
                           onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/112x112/E0E0E0/333333?text=No+Image"; }}
                         />
                         <div className="flex-grow">
-                          <p className="text-base font-medium text-[#0A0908]">{item.name}</p>
+                          <p className={`text-base font-medium text-[${nearBlack}]`}>{item.name}</p>
                           <p className="text-sm text-gray-500">{item.brand}</p>
                           <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
                         </div>
-                        <p className="text-base font-semibold text-[#0A0908]">R{(item.price * item.quantity).toFixed(2)}</p>
+                        <p className={`text-base font-semibold text-[${nearBlack}]`}>R{(item.price * item.quantity).toFixed(2)}</p>
                       </Link>
                     ))}
                   </div>
@@ -71,6 +78,21 @@ export default function Orders() {
             ))}
           </div>
         )}
+
+        {/* Back to Account Button */}
+        <div className="flex justify-center mt-8"> {/* Added margin top for spacing */}
+        <button
+          type="button"
+          onClick={() => navigate('/my-account')}
+          className={`w-full sm:w-auto px-10 py-3 rounded-lg font-semibold flex items-center justify-center
+                      bg-white text-[${nearBlack}] border border-gray-300
+                      hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400`}
+          aria-label="Back to account details"
+        >
+          <FiArrowLeft size={20} className="mr-2 flex-shrink-0" /> Back to Account
+        </button>
+      </div>
+
       </div>
     </div>
   );

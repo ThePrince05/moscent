@@ -8,7 +8,7 @@ import {
   updatePassword,
 } from 'firebase/auth';
 import { useAuth } from '../../context/AuthContext';
-import { FiEye, FiEyeOff, FiEdit2, FiArrowLeft } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiSave, FiArrowLeft } from 'react-icons/fi';
 
 export default function ChangePassword() {
   const { currentUser } = useAuth();
@@ -123,27 +123,28 @@ export default function ChangePassword() {
           ))}
 
           <div className="flex flex-col items-center space-y-4 pt-4">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full px-6 py-3 rounded-lg font-semibold flex items-center justify-center
-                          bg-[#D6001A] text-white hover:bg-red-700 transition-all duration-200
-                          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D6001A]
-                          ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-            >
-              {loading ? (
-                'Saving...'
-              ) : (
-                <>
-                  <FiEdit2 size={20} className="mr-2" />
-                  Change Password
-                </>
-              )}
-            </button>
+           <button
+            type="submit"
+            disabled={loading}
+            className={`w-full px-8 py-3 rounded-md font-semibold flex items-center justify-center
+                        bg-transparent border-2 border-[#D6001A] text-[#D6001A]
+                        hover:bg-[#D6001A] hover:text-[#F2F4F3] transition-colors duration-200
+                        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D6001A] group
+                        ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          >
+            {loading ? (
+              'Saving...'
+            ) : (
+              <>
+                <FiSave size={20} className="mr-2 group-hover:text-[#F2F4F3]" /> {/* Added group-hover:text */}
+                Change Password
+              </>
+            )}
+          </button>
 
             <button
               type="button"
-              onClick={() => navigate('/account')}
+              onClick={() => navigate('/my-account')}
               className="w-full px-6 py-3 rounded-lg font-semibold flex items-center justify-center
                          bg-gray-100 text-[#0A0908] border border-gray-300 hover:bg-gray-200
                          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"

@@ -1,15 +1,16 @@
 // src/pages/Account/PersonalDetails.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { doc, onSnapshot, setDoc } from 'firebase/firestore';
 import { db } from '../../firebaseConfig';
 import { useAuth } from '../../context/AuthContext';
-import { FiSave, FiXCircle } from 'react-icons/fi';
+import { FiSave, FiXCircle, FiArrowLeft } from 'react-icons/fi'; // Import FiArrowLeft
 import { formatPhoneNumberForDisplay, formatPhoneNumberForStorage } from '../../utils/phoneFormatters';
-// Import toTitleCase from your new utility file
-import { toTitleCase } from '../../utils/stringFormatters'; // <--- NEW IMPORT
+import { toTitleCase } from '../../utils/stringFormatters';
 
 export default function PersonalDetails() {
   const { currentUser } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -116,7 +117,7 @@ export default function PersonalDetails() {
       // Prepare data to send to Firestore - ensure firstName and lastName are title-cased before saving
       const dataToUpdate = {
         firstName: toTitleCase(formData.firstName), // Ensure final save is title cased
-        lastName: toTitleCase(formData.lastName),   // Ensure final save is title cased
+        lastName: toTitleCase(formData.lastName),    // Ensure final save is title cased
         phoneNumber: formattedPhoneNumberForStorage,
         email: currentUser.email,
         lastUpdated: new Date(),
@@ -182,7 +183,7 @@ export default function PersonalDetails() {
                 <button
                   onClick={() => setIsEditing(true)}
                   className={`px-4 py-2 rounded-md font-semibold text-[${accentRed}] border border-[${accentRed}]
-                             hover:bg-[${accentRed}] hover:text-[${offWhite}] transition-colors duration-200`}
+                               hover:bg-[${accentRed}] hover:text-[${offWhite}] transition-colors duration-200`}
                   aria-label="Edit personal details"
                 >
                   Edit
@@ -205,7 +206,7 @@ export default function PersonalDetails() {
                     className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 bg-gray-100 text-gray-600 cursor-not-allowed sm:text-sm`}
                   />
                   <p className="mt-1 text-sm text-gray-500">
-                    To change your email, please use the "Change Password" section.
+                    To change your email, please use the "Change Email" section. {/* This line should be updated in a later step */}
                   </p>
                 </div>
 
@@ -221,7 +222,7 @@ export default function PersonalDetails() {
                     required
                     disabled={!isEditing}
                     className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm
-                                ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
+                                 ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
                   />
                 </div>
 
@@ -237,7 +238,7 @@ export default function PersonalDetails() {
                     required
                     disabled={!isEditing}
                     className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm
-                                ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
+                                 ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
                   />
                 </div>
 
@@ -252,7 +253,7 @@ export default function PersonalDetails() {
                     onChange={handleInputChange}
                     disabled={!isEditing}
                     className={`mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 sm:text-sm
-                                ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
+                                 ${isEditing ? `focus:outline-none focus:ring-[${accentRed}] focus:border-[${accentRed}]` : 'bg-gray-100 text-gray-600 cursor-not-allowed'}`}
                   />
                 </div>
               </div>
@@ -263,7 +264,7 @@ export default function PersonalDetails() {
                     type="button"
                     onClick={handleCancelEdit}
                     className={`flex items-center bg-gray-300 text-[${nearBlack}] px-6 py-2 rounded-md font-semibold
-                                hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500`}
+                                 hover:bg-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500`}
                     aria-label="Cancel changes"
                   >
                     <FiXCircle className="mr-2" /> Cancel
@@ -271,7 +272,7 @@ export default function PersonalDetails() {
                   <button
                     type="submit"
                     className={`flex items-center bg-[${accentRed}] text-[${offWhite}] px-6 py-2 rounded-md font-semibold
-                                hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[${accentRed}]`}
+                                 hover:bg-red-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[${accentRed}]`}
                     aria-label="Save changes"
                   >
                     <FiSave className="mr-2" /> Save Changes
@@ -281,6 +282,21 @@ export default function PersonalDetails() {
             </form>
           </div>
         )}
+
+        {/* Back to Account Button - Added here */}
+        <div className="flex justify-center mt-8">
+          <button
+            type="button"
+            onClick={() => navigate('/my-account')} // Ensure this navigates to /my-account
+            className={`w-full sm:w-auto px-10 py-3 rounded-lg font-semibold flex items-center justify-center
+                        bg-white text-[${nearBlack}] border border-gray-300
+                        hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400`}
+            aria-label="Back to account details"
+          >
+            <FiArrowLeft size={20} className="mr-2 flex-shrink-0" /> Back to Account
+          </button>
+        </div>
+
       </div>
     </div>
   );

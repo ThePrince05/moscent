@@ -1,50 +1,51 @@
-// src/pages/Auth.jsx
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebaseConfig'; // Import the auth instance from your Firebase config
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { auth } from '../firebaseConfig';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail
 } from 'firebase/auth';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export default function Auth() {
-  const [isLoginView, setIsLoginView] = useState(true); // State to toggle between login and signup
+  const [isLoginView, setIsLoginView] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // For signup
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [message, setMessage] = useState(''); // For success messages or password reset info
-  const [isLoading, setIsLoading] = useState(false); // To manage loading state during Firebase calls
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Define your color palette for easy reference
-  // Assuming these are now configured in tailwind.config.js as per previous instructions
-  // The color variables are still here for reference, but the Tailwind classes are preferred
-  const primaryBackground = '#F2F4F3'; // Off-White/Light Gray
-  const primaryText = '#0A0908';    // Near Black
-  const accentRed = '#D6001A';      // A vibrant, modern red
-  const darkerRed = '#A30013';      // A slightly darker red for hover effects
+  // On mount, check for redirect message from previous page (like ChangeEmail)
+  useEffect(() => {
+    if (location.state?.message) {
+      setMessage(location.state.message);
+      // Clear it so message doesn't show again on page refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   const handleAuthAction = async (e) => {
     e.preventDefault();
-    setError(''); // Clear previous errors
-    setMessage(''); // Clear previous messages
-    setIsLoading(true); // Start loading
+    setError('');
+    setMessage('');
+    setIsLoading(true);
 
     try {
       if (isLoginView) {
-        // Login Logic
         await signInWithEmailAndPassword(auth, email, password);
         setMessage('Login successful! Redirecting...');
-        // Small delay for message visibility before redirecting
-        setTimeout(() => {
-          navigate('/');
-        }, 1500);
+        setTimeout(() => navigate('/'), 1500);
       } else {
-        // Signup Logic
         if (password !== confirmPassword) {
           setError("Passwords do not match.");
           setIsLoading(false);
@@ -52,7 +53,6 @@ export default function Auth() {
         }
         await createUserWithEmailAndPassword(auth, email, password);
         setMessage('Account created successfully! Please log in.');
-        // Optionally switch to login view after successful signup
         setIsLoginView(true);
         setEmail('');
         setPassword('');
@@ -60,7 +60,6 @@ export default function Auth() {
       }
     } catch (err) {
       console.error("Authentication error:", err);
-      // Firebase error codes for user-friendly messages
       switch (err.code) {
         case 'auth/invalid-email':
           setError('Invalid email address format.');
@@ -83,10 +82,9 @@ export default function Auth() {
           break;
         default:
           setError('An unexpected error occurred. Please try again.');
-          break;
       }
     } finally {
-      setIsLoading(false); // End loading
+      setIsLoading(false);
     }
   };
 
@@ -100,8 +98,8 @@ export default function Auth() {
     setMessage('');
     try {
       await sendPasswordResetEmail(auth, email);
-      setMessage('Password reset email sent! Check your inbox or your spam folder.');
-      setEmail(''); // Clear email field after sending reset link
+      setMessage('Password reset email sent! Check your inbox or spam folder.');
+      setEmail('');
     } catch (err) {
       console.error("Password reset error:", err);
       switch (err.code) {
@@ -113,7 +111,6 @@ export default function Auth() {
           break;
         default:
           setError('Failed to send password reset email. Please try again.');
-          break;
       }
     } finally {
       setIsLoading(false);
@@ -124,8 +121,7 @@ export default function Auth() {
     <div className="bg-primary-background min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-6 p-8 bg-white rounded-lg shadow-lg border border-gray-50">
         <div className="text-center">
-          {/* Removed Mo'Scent Logo/Brand Name */}
-          <h2 className="text-3xl font-bold text-primary-text mb-4"> {/* Added mb-4 for spacing */}
+          <h2 className="text-3xl font-bold text-primary-text mb-4">
             {isLoginView ? 'Sign in to your account' : 'Create a new account'}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
@@ -133,8 +129,8 @@ export default function Auth() {
             <button
               onClick={() => {
                 setIsLoginView(!isLoginView);
-                setError(''); // Clear errors when toggling view
-                setMessage(''); // Clear messages
+                setError('');
+                setMessage('');
                 setEmail('');
                 setPassword('');
                 setConfirmPassword('');
@@ -147,83 +143,96 @@ export default function Auth() {
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm" role="alert">
+          <div
+            className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md text-sm"
+            role="alert"
+          >
             {error}
           </div>
         )}
         {message && (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm" role="alert">
+          <div
+            className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-md text-sm"
+            role="alert"
+          >
             {message}
           </div>
         )}
 
         <form className="space-y-6" onSubmit={handleAuthAction}>
           <div>
-            <label htmlFor="email-address" className="sr-only">
-              Email address
-            </label>
             <input
               id="email-address"
               name="email"
               type="email"
               autoComplete="email"
               required
-              className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
-                         focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm"
               placeholder="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
+                         focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm"
             />
           </div>
-          <div>
-            <label htmlFor="password" className="sr-only">
-              Password
-            </label>
+
+          <div className="relative">
             <input
               id="password"
               name="password"
-              type="password"
-              autoComplete={isLoginView ? "current-password" : "new-password"}
+              type={passwordVisible ? 'text' : 'password'}
+              autoComplete={isLoginView ? 'current-password' : 'new-password'}
               required
-              className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
-                         focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
+                         focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm pr-10"
             />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500"
+              aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+            >
+              {passwordVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+            </button>
           </div>
+
           {!isLoginView && (
-            <div>
-              <label htmlFor="confirm-password" className="sr-only">
-                Confirm Password
-              </label>
+            <div className="relative">
               <input
                 id="confirm-password"
                 name="confirm-password"
-                type="password"
+                type={passwordVisible ? 'text' : 'password'}
                 autoComplete="new-password"
                 required
-                className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
-                           focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm"
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                className="block w-full px-4 py-2 border border-gray-300 rounded-md placeholder-gray-500 text-primary-text
+                           focus:outline-none focus:ring-2 focus:ring-accent-red focus:border-transparent sm:text-sm pr-10"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm text-gray-500"
+                aria-label={passwordVisible ? 'Hide password' : 'Show password'}
+              >
+                {passwordVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+              </button>
             </div>
           )}
 
           {isLoginView && (
             <div className="flex justify-end">
-              <div className="text-sm">
-                <button
-                  type="button"
-                  onClick={handlePasswordReset}
-                  className="font-medium text-accent-red hover:text-darker-red transition-colors duration-200 focus:outline-none focus:underline"
-                  disabled={isLoading}
-                >
-                  Forgot your password?
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={handlePasswordReset}
+                className="text-sm font-medium text-accent-red hover:text-darker-red focus:outline-none focus:underline"
+                disabled={isLoading}
+              >
+                Forgot your password?
+              </button>
             </div>
           )}
 
@@ -234,9 +243,20 @@ export default function Auth() {
               disabled={isLoading}
             >
               {isLoading ? (
-                <svg className="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg className="animate-spin h-6 w-6 text-white" viewBox="0 0 24 24">
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  />
                 </svg>
               ) : (
                 isLoginView ? 'Sign In' : 'Sign Up'
