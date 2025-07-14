@@ -8,7 +8,7 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { useAuth } from '../../context/AuthContext';
-import { FiMail, FiEye, FiEyeOff, FiSave, FiArrowLeft } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiSave, FiArrowLeft } from 'react-icons/fi';
 
 export default function ChangeEmail() {
   const { currentUser } = useAuth();
@@ -23,9 +23,7 @@ export default function ChangeEmail() {
   const [loading, setLoading] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
+  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   const handleChangeEmail = async (e) => {
     e.preventDefault();
@@ -45,14 +43,8 @@ export default function ChangeEmail() {
       return;
     }
 
-    if (newEmail === currentUser.email) {
-      setError("This is already your current email.");
-      setLoading(false);
-      return;
-    }
-
     if (!/\S+@\S+\.\S+/.test(newEmail)) {
-      setError("Please enter a valid email.");
+      setError("Please enter a valid email address.");
       setLoading(false);
       return;
     }
@@ -62,30 +54,33 @@ export default function ChangeEmail() {
       await reauthenticateWithCredential(currentUser, credential);
 
       await updateEmail(currentUser, newEmail);
-      await sendEmailVerification(currentUser);
+      console.log("✅ Email updated to:", newEmail);
 
+      await sendEmailVerification(currentUser);
+      console.log("📧 Verification email sent to:", newEmail);
+
+      setSuccessMessage(`Email updated to ${newEmail}. You'll now be logged out...`);
       setCurrentPassword('');
       setNewEmail('');
       setConfirmNewEmail('');
-      setSuccessMessage(`Email updated to ${newEmail}. You will now be logged out...`);
-      setLoading(false);
 
-      // Delay logout to let user see the success message
       setTimeout(async () => {
         await auth.signOut();
         navigate('/auth');
-      }, 2000);
+      }, 2500);
     } catch (err) {
       const errorMap = {
         'auth/wrong-password': 'Incorrect current password.',
         'auth/user-mismatch': 'Authentication error. Please log in again.',
         'auth/requires-recent-login': 'Please log out and log back in to update your email.',
         'auth/invalid-email': 'Invalid new email address.',
-        'auth/email-already-in-use': 'Email is already in use.',
-        'auth/operation-not-allowed': 'Email update is not allowed. Contact support.',
+        'auth/email-already-in-use': 'This email is already in use.',
+        'auth/operation-not-allowed': 'Email update not allowed. Contact support.',
         'auth/network-request-failed': 'Network error. Check your connection.',
       };
+      console.error("❌ Error updating email:", err);
       setError(errorMap[err.code] || `Error: ${err.message}`);
+    } finally {
       setLoading(false);
     }
   };
@@ -106,123 +101,102 @@ export default function ChangeEmail() {
         </h1>
 
         <p className="text-sm text-center text-gray-600 mb-4">
-          After changing your email, you'll be logged out and redirected to the login screen.
+          After changing your email, you'll be logged out. Please verify your new email address via the link we will send in your inbox or spam folder.
         </p>
 
-        {error && (
-          <p className="text-center text-lg text-red-600 mb-4">{error}</p>
-        )}
+        {error && <p className="text-center text-lg text-red-600 mb-4">{error}</p>}
+        {successMessage && <p className="text-center text-lg text-green-600 mb-4">{successMessage}</p>}
 
-        {successMessage && (
-          <p className="text-center text-lg text-green-600 mb-4">{successMessage}</p>
-        )}
-
-        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
-          <form onSubmit={handleChangeEmail}>
-            <div className="space-y-6">
-              <div>
-                <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700">
-                  Current Password
-                </label>
-                <div className="relative mt-1">
-                  <input
-                    type={passwordVisible ? 'text' : 'password'}
-                    id="currentPassword"
-                    value={currentPassword}
-                    onChange={(e) => {
-                      setError(null);
-                      setSuccessMessage(null);
-                      setCurrentPassword(e.target.value);
-                    }}
-                    disabled={loading}
-                    required
-                    autoComplete="current-password"
-                    className="block w-full border border-gray-300 rounded-md py-2 px-3 sm:text-sm shadow-sm focus:ring-[#D6001A] focus:border-[#D6001A]"
-                  />
-                  <button
-                    type="button"
-                    onClick={togglePasswordVisibility}
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-                    aria-label={passwordVisible ? "Hide password" : "Show password"}
-                  >
-                    {passwordVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="newEmail" className="block text-sm font-medium text-gray-700">
-                  New Email Address
-                </label>
+        <form onSubmit={handleChangeEmail} className="bg-white rounded-lg shadow-md border border-gray-200 p-6 sm:p-8 mb-6">
+          <div className="space-y-6">
+            <div>
+              <label htmlFor="currentPassword" className="block text-sm font-medium text-gray-700">
+                Current Password
+              </label>
+              <div className="relative mt-1">
                 <input
-                  type="email"
-                  id="newEmail"
-                  value={newEmail}
-                  onChange={(e) => {
-                    setError(null);
-                    setSuccessMessage(null);
-                    setNewEmail(e.target.value);
-                  }}
+                  type={passwordVisible ? 'text' : 'password'}
+                  id="currentPassword"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
                   disabled={loading}
                   required
-                  autoComplete="email"
+                  autoComplete="current-password"
                   className="block w-full border border-gray-300 rounded-md py-2 px-3 sm:text-sm shadow-sm focus:ring-[#D6001A] focus:border-[#D6001A]"
                 />
-              </div>
-
-              <div>
-                <label htmlFor="confirmNewEmail" className="block text-sm font-medium text-gray-700">
-                  Confirm New Email
-                </label>
-                <input
-                  type="email"
-                  id="confirmNewEmail"
-                  value={confirmNewEmail}
-                  onChange={(e) => {
-                    setError(null);
-                    setSuccessMessage(null);
-                    setConfirmNewEmail(e.target.value);
-                  }}
-                  disabled={loading}
-                  required
-                  autoComplete="email"
-                  className="block w-full border border-gray-300 rounded-md py-2 px-3 sm:text-sm shadow-sm focus:ring-[#D6001A] focus:border-[#D6001A]"
-                />
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
+                  aria-label={passwordVisible ? "Hide password" : "Show password"}
+                >
+                  {passwordVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                </button>
               </div>
             </div>
 
-            <div className="flex flex-col items-center space-y-4 mt-8">
-              <button
-                type="submit"
+            <div>
+              <label htmlFor="newEmail" className="block text-sm font-medium text-gray-700">
+                New Email Address
+              </label>
+              <input
+                type="email"
+                id="newEmail"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
                 disabled={loading}
-                className={`w-full px-8 py-3 rounded-md font-semibold flex items-center justify-center
-                  bg-transparent border-2 border-[#D6001A] text-[#D6001A]
-                  hover:bg-[#D6001A] hover:text-[#F2F4F3] transition-colors duration-200
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D6001A] group
-                  ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                {loading ? 'Updating...' : (
-                  <>
-                    <FiSave size={20} className="mr-2 group-hover:text-[#F2F4F3]" />
-                    Update Email
-                  </>
-                )}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => navigate('/my-account')}
-                disabled={loading}
-                className="w-full px-10 py-3 rounded-lg font-semibold flex items-center justify-center
-                  bg-gray-100 text-[#0A0908] border border-gray-300
-                  hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-              >
-                <FiArrowLeft size={20} className="mr-2" />
-                Back to Account
-              </button>
+                required
+                className="block w-full border border-gray-300 rounded-md py-2 px-3 sm:text-sm shadow-sm focus:ring-[#D6001A] focus:border-[#D6001A]"
+              />
             </div>
-          </form>
-        </div>
+
+            <div>
+              <label htmlFor="confirmNewEmail" className="block text-sm font-medium text-gray-700">
+                Confirm New Email
+              </label>
+              <input
+                type="email"
+                id="confirmNewEmail"
+                value={confirmNewEmail}
+                onChange={(e) => setConfirmNewEmail(e.target.value)}
+                disabled={loading}
+                required
+                className="block w-full border border-gray-300 rounded-md py-2 px-3 sm:text-sm shadow-sm focus:ring-[#D6001A] focus:border-[#D6001A]"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center space-y-4 mt-8">
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full px-8 py-3 rounded-md font-semibold flex items-center justify-center
+                bg-transparent border-2 border-[#D6001A] text-[#D6001A]
+                hover:bg-[#D6001A] hover:text-[#F2F4F3] transition-colors duration-200
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#D6001A] group
+                ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {loading ? 'Updating...' : (
+                <>
+                  <FiSave size={20} className="mr-2 group-hover:text-[#F2F4F3]" />
+                  Update Email
+                </>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/my-account')}
+              disabled={loading}
+              className="w-full px-10 py-3 rounded-lg font-semibold flex items-center justify-center
+                bg-gray-100 text-[#0A0908] border border-gray-300
+                hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+            >
+              <FiArrowLeft size={20} className="mr-2" />
+              Back to Account
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

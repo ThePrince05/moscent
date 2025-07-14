@@ -27,8 +27,7 @@ import ProductDetailPage from './pages/Product';
 import CartPage from './pages/Cart';
 import FavoritesPage from './pages/Favorites';
 import Orders from './pages/Orders';
-import AdminDashboard from './pages/AdminDashboard';
-import AdminOrders from './pages/AdminOrders';
+import Dashboard from './pages/Admin/Dashboard';
 import Auth from './pages/Auth';
 import MyAccount from './pages/MyAccount'; 
 import ShippingAddresses from './pages/Account/ShippingAddresses'; 
@@ -38,6 +37,8 @@ import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import ChangePassword from './pages/Account/ChangePassword';
 import ChangeEmail from './pages/Account/ChangeEmail';
+
+
 
 function App() {
   // --- AUTHENTICATION & LOADING STATES ---
@@ -79,6 +80,15 @@ function App() {
     const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
       setCurrentUser(user);
       setIsAuthLoading(false); // Auth state determined
+
+       if (!user || !user.emailVerified) {
+        // If no user, or user isn’t verified yet, skip Firestore syncing entirely
+        unsubscribeCart();
+        unsubscribeFavorites();
+        setCartItems(JSON.parse(localStorage.getItem('moScentCart')) || []);
+        setFavoriteProductIds(new Set(JSON.parse(localStorage.getItem('moScentFavourites')) || []));
+        return;
+      }
 
       if (user) {
         // User is logged in
@@ -588,6 +598,7 @@ function App() {
                 />
               }
             />
+
             <Route path="/auth" element={<Auth />} />
 
             {/* PROTECTED ROUTES */}
@@ -614,18 +625,11 @@ function App() {
               path="/admin/dashboard"
               element={
                 <ProtectedRoute>
-                  <AdminDashboard />
+                  <Dashboard />
                 </ProtectedRoute>
               }
             />
-            <Route
-              path="/admin/orders"
-              element={
-                <ProtectedRoute>
-                  <AdminOrders />
-                </ProtectedRoute>
-              }
-            />
+           
             <Route
               path="/account/shipping-addresses"
               element={

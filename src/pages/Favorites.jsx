@@ -24,12 +24,12 @@ export default function Favorites({ addToCart, toggleFavourite, favoriteProductI
 
   return (
     <div className={`bg-[${primaryBackground}] min-h-screen flex flex-col`}>
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      <main className="container mx-auto **px-8 md:px-16 lg:px-24** py-8 flex-grow"> {/* MODIFIED LINE */}
         <h1 className={`text-4xl font-bold text-[${primaryText}] mb-8 text-center`}>Your Favorites</h1>
 
         {favoriteProducts.length === 0 ? (
           <p className={`text-xl text-gray-600 text-center py-10`}>
-            You haven't added any fragrances to your favorites yet. Start browsing our <Link to="/catalog" className={`text-[${accentRed}] hover:underline`}>catalog</Link>! {/* Changed link color for consistency */}
+            You haven't added any fragrances to your favorites yet. Start Browse our <Link to="/catalog" className={`text-[${accentRed}] hover:underline`}>catalog</Link>! {/* Changed link color for consistency */}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

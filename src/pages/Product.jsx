@@ -250,7 +250,6 @@ export default function Product({ addToCart, toggleFavourite, favoriteProductIds
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

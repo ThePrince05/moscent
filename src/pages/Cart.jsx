@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function Cart({ cartItems, updateQuantity, removeFromCart, clearCart }) {
   // Your color palette from saved information
-  const primaryBackground = '#F2F4F3'; // Off-White/Light Gray [cite: 2025-07-02]
-  const primaryText = '#0A0908';       // Near Black [cite: 2025-07-02]
-  const accentRed = '#D6001A';         // A vibrant, modern red [cite: 2025-07-02]
+  const primaryBackground = '#F2F4F3'; // Off-White/Light Gray
+  const primaryText = '#0A0908';       // Near Black
+  const accentRed = '#D6001A';         // A vibrant, modern red
 
   // Helper function to safely get item properties with default values
   const getItemProperty = (item, propName, defaultValue = '') => {
@@ -34,13 +34,13 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart, clearC
   }, 0);
 
   const handleCheckout = () => {
-    alert('Proceeding to checkout (Phase 2 feature - Stripe integration coming soon!)'); // This will be integrated with Stripe in Phase 2 [cite: 2025-06-26, 2025-07-06]
+    alert('Proceeding to checkout (Phase 2 feature - Stripe integration coming soon!)'); // This will be integrated with Stripe in Phase 2
     // clearCart();
   };
 
   return (
     <div className={`bg-[${primaryBackground}] min-h-screen flex flex-col`}>
-      <main className="container mx-auto px-4 py-8 flex-grow">
+      <main className="container mx-auto **px-8 md:px-16 lg:px-24** py-8 flex-grow"> {/* MODIFIED LINE */}
         <h1 className={`text-4xl font-bold text-[${primaryText}] mb-8 text-center`}>
           Your Shopping Cart
         </h1>
@@ -55,7 +55,6 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart, clearC
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Cart Items List Container */}
-            {/* The py-6 on this container should provide consistent padding around the items. */}
             <div className="md:col-span-2 bg-white px-6 py-6 rounded-lg shadow-md">
               {cartItems.map((item, index) => {
                 const currentProductId = getItemProperty(item, 'productId', getItemProperty(item, 'id'));
@@ -67,8 +66,6 @@ export default function Cart({ cartItems, updateQuantity, removeFromCart, clearC
                 return (
                   <div
                     key={item.id || cartItemKey}
-                    // Apply border-b only if it's not the last item
-                    // Apply consistent top margin to all items except the first
                     className={`flex items-center py-4
                       ${index > 0 ? 'mt-4' : ''}
                       ${index < cartItems.length - 1 ? 'border-b border-gray-200' : ''}
