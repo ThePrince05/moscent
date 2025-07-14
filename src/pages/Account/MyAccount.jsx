@@ -1,9 +1,9 @@
 // src/pages/MyAccount.jsx
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { db } from '../../firebaseConfig';
 // Import Feather icons from react-icons
 import { FiPackage, FiHeart, FiLogOut, FiMapPin, FiLock, FiUser, FiCreditCard, FiMail, FiSettings } from 'react-icons/fi';
 

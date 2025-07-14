@@ -29,7 +29,7 @@ import FavoritesPage from './pages/Favorites';
 import Orders from './pages/Orders';
 import Dashboard from './pages/Admin/Dashboard';
 import Auth from './pages/Auth';
-import MyAccount from './pages/MyAccount'; 
+import MyAccount from './pages/Account/MyAccount'; 
 import ShippingAddresses from './pages/Account/ShippingAddresses'; 
 import PersonalDetails from './pages/Account/PersonalDetails';
 import Footer from './components/Footer';
@@ -37,7 +37,8 @@ import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from './components/ProtectedRoute';
 import ChangePassword from './pages/Account/ChangePassword';
 import ChangeEmail from './pages/Account/ChangeEmail';
-
+import AdminOrders from './pages/Admin/Orders';
+import AdminOrderDetails from './pages/Admin/OrderDetail';
 
 
 function App() {
@@ -619,16 +620,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-
-            {/* Admin-Only Routes - Now Protected */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
            
             <Route
               path="/account/shipping-addresses"
@@ -659,6 +650,32 @@ function App() {
               element={
                 <ProtectedRoute>
                   <ChangeEmail/>
+                </ProtectedRoute>
+              }
+            />
+
+             {/* Admin-Only Routes - Now Protected */}
+            <Route
+              path="/admin/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders"
+              element={
+                <ProtectedRoute>
+                  <AdminOrders />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/orders/:orderId"
+              element={
+                <ProtectedRoute>
+                  <AdminOrderDetails />
                 </ProtectedRoute>
               }
             />
