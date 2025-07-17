@@ -47,7 +47,6 @@ export default function OrderDetail() {
             <h2 className="text-2xl font-semibold text-near-black mb-4">Order Info</h2>
             <p className="mb-2"><strong>Date:</strong> {order.date}</p>
             <p className="mb-2"><strong>Status:</strong> {order.status}</p>
-            <p className="mb-2"><strong>Payment Status:</strong> {order.paymentStatus}</p>
             <p className="mb-2"><strong>Created At:</strong> {order.createdAt.toLocaleString()}</p>
             <p className="mb-2"><strong>Updated At:</strong> {order.updatedAt.toLocaleString()}</p>
           </div>
@@ -75,16 +74,16 @@ export default function OrderDetail() {
                   </td>
                   <td className="px-4 py-3 font-medium text-near-black">{item.name}</td>
                   <td className="px-4 py-3">{item.brand}</td>
-                  <td className="px-4 py-3">${item.price.toFixed(2)}</td>
+                  <td className="px-4 py-3">R{item.price.toFixed(2)}</td>
                   <td className="px-4 py-3">{item.quantity}</td>
-                  <td className="px-4 py-3 font-semibold text-near-black">${(item.price * item.quantity).toFixed(2)}</td>
+                  <td className="px-4 py-3 font-semibold text-near-black">R{(item.price * item.quantity).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
             <tfoot>
               <tr className="border-t-2 border-gray-300">
                 <td colSpan="5" className="px-4 py-4 text-right font-bold text-lg text-near-black">Total:</td>
-                <td className="px-4 py-4 font-bold text-lg text-near-black">${order.total.toFixed(2)}</td>
+                <td className="px-4 py-4 font-bold text-lg text-near-black">R{order.total.toFixed(2)}</td>
               </tr>
             </tfoot>
           </table>

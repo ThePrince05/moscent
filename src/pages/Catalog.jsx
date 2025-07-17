@@ -225,8 +225,6 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
           <p className="text-center text-xl text-gray-600 py-10 col-span-full">No fragrances found matching your criteria.</p>
         )}
       </main>
-
-      <Footer />
     </div>
   );
 }

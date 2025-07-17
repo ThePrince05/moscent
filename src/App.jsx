@@ -39,6 +39,7 @@ import ChangePassword from './pages/Account/ChangePassword';
 import ChangeEmail from './pages/Account/ChangeEmail';
 import AdminOrders from './pages/Admin/Orders';
 import AdminOrderDetails from './pages/Admin/OrderDetail';
+import AdminCustomers from './pages/Admin/Customers';
 
 
 function App() {
@@ -655,31 +656,41 @@ function App() {
             />
 
              {/* Admin-Only Routes - Now Protected */}
-            <Route
-              path="/admin/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/orders"
-              element={
-                <ProtectedRoute>
-                  <AdminOrders />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/admin/orders/:orderId"
-              element={
-                <ProtectedRoute>
-                  <AdminOrderDetails />
-                </ProtectedRoute>
-              }
-            />
+           <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute adminOnly={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
 
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute adminOnly={true}>
+                <AdminOrders />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/orders/:orderId"
+            element={
+              <ProtectedRoute adminOnly={true}>
+                <AdminOrderDetails />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/admin/customers"
+            element={
+              <ProtectedRoute adminOnly={true}>
+                <AdminCustomers />
+              </ProtectedRoute>
+            }
+          />
             <Route path="*" element={<div>404 Not Found</div>} />
           </Routes>
         </div>

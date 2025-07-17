@@ -8,72 +8,55 @@ export default function Orders() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-off-white min-h-screen py-10 px-4 sm:px-6 lg:px-8 font-sans flex flex-col">
-      <div className="max-w-7xl mx-auto flex-grow">
-        <h1 className="text-3xl font-bold text-near-black mb-8 text-center">All Orders</h1>
+    <div className="bg-off-white min-h-screen py-10 px-4 sm:px-6 lg:px-8 font-sans flex flex-col w-full overflow-x-hidden">
+      <div className="w-full flex-grow">
+        <h1 className="text-2xl sm:text-3xl font-bold text-near-black mb-8 text-center">All Orders</h1>
 
-        <div className="overflow-x-auto bg-white shadow rounded-lg border border-gray-200">
-          <table className="min-w-full text-sm">
-            <thead className="bg-gray-100">
-              <tr>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Order ID</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Customer Email</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Date</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Payment</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Status</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Total</th>
-                <th className="px-6 py-4 text-left font-semibold text-near-black">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr
-                  key={order.id}
-                  className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150"
-                >
-                  <td className="px-6 py-4 font-medium text-near-black">{order.id}</td>
-                  <td className="px-6 py-4 text-gray-700">{order.userEmail}</td>
-                  <td className="px-6 py-4 text-gray-700">{order.date}</td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                      order.paymentStatus === 'paid'
-                        ? 'bg-green-200 text-green-800'
-                        : order.paymentStatus === 'pending'
-                        ? 'bg-yellow-200 text-yellow-800'
-                        : 'bg-red-200 text-red-800'
-                    }`}>
-                      {order.paymentStatus.charAt(0).toUpperCase() + order.paymentStatus.slice(1)}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
-                      order.status === 'Delivered'
-                        ? 'bg-green-200 text-green-800'
-                        : order.status === 'Shipped'
-                        ? 'bg-blue-200 text-blue-800'
-                        : order.status === 'Processing'
-                        ? 'bg-orange-200 text-orange-800'
-                        : order.status === 'Cancelled'
-                        ? 'bg-red-200 text-red-800'
-                        : 'bg-gray-200 text-gray-800'
-                    }`}>
-                      {order.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-700">${order.total.toFixed(2)}</td>
-                  <td className="px-6 py-4">
-                    <Link
-                      to={`/admin/orders/${order.id}`}
-                      className="inline-flex items-center text-accent-red hover:underline"
-                    >
-                      View <FiArrowRight className="ml-1" />
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        {/* Horizontal scroll container for table */}
+      <div className="w-full max-w-full overflow-x-auto bg-white shadow rounded-lg border border-gray-200">
+       <table className="w-full table-auto text-sm sm:text-base">
+        <thead className="bg-gray-100 sticky top-0 z-10">
+          <tr>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Order ID</th>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Customer Email</th>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Date</th>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Status</th>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Total</th>
+            <th className="px-6 py-4 text-left font-semibold text-near-black">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id} className="border-t border-gray-200 hover:bg-gray-50 transition-colors duration-150">
+              <td className="px-6 py-4 font-medium text-near-black">{order.id}</td>
+              <td className="px-6 py-4 text-gray-700 truncate whitespace-nowrap overflow-hidden max-w-[180px]">
+                {order.userEmail}
+              </td>
+              <td className="px-6 py-4 text-gray-700">{order.date}</td>
+              <td className="px-6 py-4">
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
+                  order.status === 'Delivered' ? 'bg-green-200 text-green-800'
+                  : order.status === 'Shipped' ? 'bg-blue-200 text-blue-800'
+                  : order.status === 'Processing' ? 'bg-orange-200 text-orange-800'
+                  : order.status === 'Cancelled' ? 'bg-red-200 text-red-800'
+                  : 'bg-gray-200 text-gray-800'
+                }`}>
+                  {order.status}
+                </span>
+              </td>
+              <td className="px-6 py-4 text-gray-700">R{order.total.toFixed(2)}</td>
+              <td className="px-6 py-4 truncate whitespace-nowrap overflow-hidden max-w-[100px]">
+                <Link to={`/admin/orders/${order.id}`} className="inline-flex items-center text-accent-red hover:underline">
+                  View <FiArrowRight className="ml-1" />
+                </Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+    </table>
+
+      </div>
+
       </div>
 
       {/* Back to Dashboard button */}

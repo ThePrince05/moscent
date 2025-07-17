@@ -1,5 +1,3 @@
-// src/data/orders.js
-
 import fragrances from './fragrances'; // Import your fragrance data
 
 // Helper function to find a fragrance by its ID
@@ -20,12 +18,11 @@ const orders = [
       city: 'Cape Town',
       zip: '8000',
     },
-    paymentStatus: 'paid',
     status: 'Delivered',
-    total: 0, // Will be calculated dynamically
+    total: 0,
     items: [
-      { productId: '1', quantity: 1 }, // Versace Pour Homme
-      { productId: '20', quantity: 1 }, // Armani Si
+      { productId: '1', quantity: 1 },
+      { productId: '20', quantity: 1 },
     ],
   },
   {
@@ -40,11 +37,10 @@ const orders = [
       city: 'Johannesburg',
       zip: '2000',
     },
-    paymentStatus: 'pending',
     status: 'Shipped',
     total: 0,
     items: [
-      { productId: '3', quantity: 2 }, // Sauvage
+      { productId: '3', quantity: 2 },
     ],
   },
   {
@@ -59,18 +55,17 @@ const orders = [
       city: 'Cape Town',
       zip: '8000',
     },
-    paymentStatus: 'paid',
     status: 'Processing',
     total: 0,
     items: [
-      { productId: '8', quantity: 1 },  // Versace Eros
-      { productId: '26', quantity: 1 }, // Good Girl
-      { productId: '13', quantity: 1 }, // Scandal (Men)
+      { productId: '8', quantity: 1 },
+      { productId: '26', quantity: 1 },
+      { productId: '13', quantity: 1 },
     ],
   },
   {
     id: 'ORD-20250627-004',
-    userId: 'admin_user', // Example for an admin order view
+    userId: 'admin_user',
     userEmail: 'admin@example.com',
     date: '2025-06-18',
     createdAt: new Date('2025-06-18T14:45:00Z'),
@@ -80,12 +75,11 @@ const orders = [
       city: 'Durban',
       zip: '4001',
     },
-    paymentStatus: 'pending',
     status: 'New Order',
     total: 0,
     items: [
-      { productId: '21', quantity: 3 }, // Light Blue (Women)
-      { productId: '18', quantity: 1 }, // Acqua Di Gio
+      { productId: '21', quantity: 3 },
+      { productId: '18', quantity: 1 },
     ],
   },
   {
@@ -100,12 +94,11 @@ const orders = [
       city: 'Pretoria',
       zip: '0002',
     },
-    paymentStatus: 'cancelled',
     status: 'Cancelled',
     total: 0,
     items: [
-      { productId: '29', quantity: 1 }, // Black Opium
-      { productId: '15', quantity: 1 }, // Legend
+      { productId: '29', quantity: 1 },
+      { productId: '15', quantity: 1 },
     ],
   },
 ];
