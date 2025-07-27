@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import fragrances from '../data/fragrances';
-import Footer from '../components/Footer';
 import { FiTruck } from 'react-icons/fi';
 
 // Receive addToCart, toggleFavourite, and favoriteProductIds as props from App.jsx

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import fragrances from '../data/fragrances'; // Your mock data
-import Footer from '../components/Footer';
+
 import { FaShoppingCart } from 'react-icons/fa'; // Import FaShoppingCart for the icon
 import { FiHeart } from 'react-icons/fi'; // Import FiHeart for the heart icon
 
