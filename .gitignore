@@ -7,20 +7,53 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Compiled output
 dist
 dist-ssr
+build
+out
+
+# Dependency directories
+node_modules/
+
+# dotenv environment files
+.env
+.env.*.local
 *.local
 
-# Editor directories and files
+# Firebase upload directory
+firebase-upload/
+
+# OS system files
+.DS_Store
+Thumbs.db
+
+# Editor directories and project files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-firebase-upload/
+# Visual Studio local workspace
+.vs/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional: Yarn/PNPM lock backup files
+yarn.lock.*
+pnpm-lock.yaml.*
+
+# Optional: Coverage and test output
+coverage/
+.nyc_output/

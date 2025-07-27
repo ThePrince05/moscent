@@ -1,52 +1,5 @@
 // src/data/fragrances.js
 
-import versacePourHommeImg from '../assets/images/versace-pour-homme.webp';
-import InvictusImg from '../assets/images/invictus.webp';
-import SauvageImg from '../assets/images/sauvage.webp';
-import TomFordNoirImg from '../assets/images/tom-ford-noir.webp';
-import BvlgariManImg from '../assets/images/Bvlgari-man.webp';
-import BleuDeChanelImg from '../assets/images/bleau-de-chanel.webp';
-import VIPImg from '../assets/images/212-vip.webp';
-import OneMillionImg from '../assets/images/one-million.webp';
-import LightBlueImg from '../assets/images/light-blue.webp';
-import HugoImg from '../assets/images/hugo.webp';
-import FahrenheitImg from '../assets/images/fahrenheit.webp';
-import ScandalImg from '../assets/images/scandal.webp';
-import TerreDHermesImg from '../assets/images/terre-d-hermes.webp';
-import LegendImg from '../assets/images/legend.webp';
-import LEauDIsseyImg from '../assets/images/l-eau-d-issey.webp';
-import JoopImg from '../assets/images/joop.webp';
-import desireImg from '../assets/images/desire.webp';
-import ArmaniSiImg from '../assets/images/armani-si-women.webp';
-import LightBlueWomenImg from '../assets/images/light-blue-women.webp';
-import NarcisoRodriguezImg from '../assets/images/narciso-rodriguez.webp';
-import HypnoticPoisonImg from '../assets/images/hypnotic-poison.webp';
-import VersaceErosPourFemmeImg from '../assets/images/versace-eros-pour-femme.webp';
-import OlympeaImg from '../assets/images/olympea.webp';
-import GoodGirlImg from '../assets/images/good-girl.webp';
-import ScandalWomenImg from '../assets/images/scandal-women.webp';
-import JAdoreImg from '../assets/images/j-adore.webp';
-import BlackOpiumImg from '../assets/images/black-opium.webp';
-import VersaceErosImg from '../assets/images/versace-eros.webp';
-import AcquaDiGioImg from '../assets/images/acqua-di-gio.webp';
-import OnlyTheBraveImg from '../assets/images/only-the-brave.webp';
-import AlienImg from '../assets/images/alien-women.webp';
-import AromaticsElixirImg from '../assets/images/aromatics-elixir-women.webp';
-import BeDeliciousImg from '../assets/images/be-delicious-women.webp';
-import ChanelNo5Img from '../assets/images/chanel-no-5-women.webp';
-import CocoMademoiselleImg from '../assets/images/coco-mademoiselle-women.webp';
-import ElieSaabImg from '../assets/images/elie-saab-women.webp';
-import GucciRushImg from '../assets/images/gucci-rush-women.webp';
-import LaVieEstBelleImg from '../assets/images/la-vie-est-belle-women.webp';
-import LadyMillionImg from '../assets/images/lady-million-women.webp';
-import BaccaratRougeImg from '../assets/images/baccarat-rouge-540-unisex.webp';
-import MojaveGhostImg from '../assets/images/mojave-ghost-unisex.webp';
-import AventusImg from '../assets/images/aventus-unisex.webp';
-import IntenseOudImg from '../assets/images/intense-oud-unisex.webp';
-import OmbreNomadeImg from '../assets/images/ombre-nomade-unisex.webp';
-import OudWoodImg from '../assets/images/oud-wood-unisex.webp';
-import LEauDIsseyWomenImg from '../assets/images/l-eau-d-issey-women.webp';
-
 
 // Helper function to extract the first sentence or a short snippet for shortDescription
 const getShortDescription = (fullDescription) => {
@@ -71,7 +24,6 @@ const getShortDescription = (fullDescription) => {
   }
   return fullDescription.trim(); // Return full description if already short
 };
-
 const allFragrancesData = [
   {
     id: '1',
@@ -79,7 +31,7 @@ const allFragrancesData = [
     brand: 'Versace',
     price: 70.00,
     discountedPrice: 0,
-    image: versacePourHommeImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/versace-pour-homme.webp',
     longDescription: 'A classic yet modern aromatic fougère, this fragrance captures the essence of the Mediterranean. It opens with vibrant citrus notes, leading to a clean, floral heart, and settles into a warm, masculine base. Perfect for the confident and dynamic man.',
     category: 'men',
     rating: 4.5,
@@ -92,7 +44,8 @@ const allFragrancesData = [
     name: 'Invictus (30ml)',
     brand: 'Paco Rabanne',
     price: 70.00,
-    image: InvictusImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/invictus.webp',
     longDescription: 'A triumphant and invigorating scent that embodies victory. This fresh, woody aquatic fragrance features a dynamic blend of marine accords, grapefruit, and guaiac wood, creating a powerful and sporty aroma for the modern hero.',
     category: 'men',
     rating: 4.8,
@@ -106,7 +59,7 @@ const allFragrancesData = [
     brand: 'Christian Dior',
     price: 70.00,
     discountedPrice: 0,
-    image: SauvageImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/sauvage.webp',
     longDescription: 'A raw and noble composition, this highly distinctive fragrance is inspired by wide-open spaces. It features a powerful freshness of Calabrian bergamot, contrasted with the strong, woody trail of ambroxan, creating a bold and undeniably masculine signature scent.',
     category: 'men',
     rating: 4.7,
@@ -119,7 +72,8 @@ const allFragrancesData = [
     name: 'Tom Ford Noir (30ml)',
     brand: 'Tom Ford',
     price: 60.00,
-    image: TomFordNoirImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/tom-ford-noir.webp',
     longDescription: 'An elegant and sophisticated oriental fougère, Tom Ford Noir is a fragrance of intriguing contrasts. It blends rich spices, sensual amber, and dark woods with a delicate floral heart, creating a mysterious and refined aroma for the modern gentleman.',
     category: 'men',
     rating: 4.2,
@@ -133,7 +87,7 @@ const allFragrancesData = [
     brand: 'Bvlgari',
     price: 60.00,
     discountedPrice: 0,
-    image: BvlgariManImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/bvlgari-man.webp',
     longDescription: "A vibrant and woody oriental, this fragrance is a sophisticated tribute to masculine strength and elegance. It opens with bright bergamot and violet leaves, leading to a heart of vetiver and cypress, settling into a warm, sensual base of cashmere wood and benzoin. It's a modern classic for the discerning man.",
     category: 'men',
     rating: 4.1,
@@ -146,7 +100,8 @@ const allFragrancesData = [
     name: 'Bleu De Chanel (30ml)',
     brand: 'Chanel',
     price: 80.00,
-    image: BleuDeChanelImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/bleau-de-chanel.webp',
     longDescription: 'An ode to masculine freedom, Bleu de Chanel is a timeless and versatile aromatic-woody fragrance. It blends invigorating citrus notes with a deep, sensual cedar and amber base, creating a sophisticated and enigmatic aroma perfect for the man who defies convention.',
     category: 'men',
     rating: 4.9,
@@ -160,7 +115,7 @@ const allFragrancesData = [
     brand: 'Carolina Herrera',
     price: 70.00,
     discountedPrice: 0,
-    image: VIPImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/212-vip.webp',
     longDescription: "Inspired by the vibrant energy of New York's exclusive parties, this captivating oriental woody fragrance is for the modern man who makes his own rules. It features a unique blend of 'caviar lime,' chilled mint, and kingwood, creating a charismatic and unforgettable scent perfect for a night out.",
     category: 'men',
     rating: 4.3,
@@ -173,7 +128,8 @@ const allFragrancesData = [
     name: 'Versace Eros (30ml)',
     brand: 'Versace',
     price: 70.00,
-    image: VersaceErosImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/versace-eros.webp',
     longDescription: "A powerful and passionate fragrance inspired by Greek mythology, Versace Eros embodies desire and heroism. It's a fresh, oriental, and woody scent blending mint oil, green apple, and Italian lemon with warm notes of tonka bean, amber, and vanilla, creating an irresistible and magnetic aura.",
     category: 'men',
     rating: 4.6,
@@ -187,7 +143,7 @@ const allFragrancesData = [
     brand: 'Paco Rabanne',
     price: 60.00,
     discountedPrice: 0,
-    image: OneMillionImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/one-million.webp',
     longDescription: "A bold and flamboyant woody spicy fragrance, One Million embodies luxury and power. It's a striking blend of sparkling grapefruit, mint, and blood mandarin, contrasted with a sensual heart of rose and cinnamon, resting on a rich leather and amber base. An audacious scent for the man who lives life to the fullest.",
     category: 'men',
     rating: 4.4,
@@ -200,7 +156,8 @@ const allFragrancesData = [
     name: 'Light Blue (30ml)',
     brand: 'Dolce & Gabbana',
     price: 70.00,
-    image: LightBlueImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/light-blue.webp',
     longDescription: 'Capturing the spirit of the Sicilian summer, Light Blue is an iconic fresh and sparkling floral-fruity fragrance. It blends vibrant Sicilian lemon and crisp apple with a delicate heart of jasmine and white rose, settling into a warm amber and musk base. A truly refreshing and irresistible scent.',
     category: 'men',
     rating: 4.0,
@@ -214,7 +171,7 @@ const allFragrancesData = [
     brand: 'Hugo Boss',
     price: 50.00,
     discountedPrice: 0,
-    image: HugoImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/hugo.webp',
     longDescription: 'A fresh and invigorating aromatic green fragrance for the unconventional man. It combines crisp green apple, mint, and lavender with a smoky, woody base, creating a dynamic and effortlessly cool scent.',
     category: 'men',
     rating: 3.9,
@@ -227,7 +184,8 @@ const allFragrancesData = [
     name: 'Fahrenheit (30ml)',
     brand: 'Christian Dior',
     price: 60.00,
-    image: FahrenheitImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/fahrenheit.webp',
     longDescription: 'A bold and distinctive leather-woody fragrance, Fahrenheit is a study in contrasts. It features unique notes of violet leaf, leather, and mandarin, creating a powerful, warm, and sophisticated aroma that stands out from the crowd.',
     category: 'men',
     rating: 4.6,
@@ -241,7 +199,7 @@ const allFragrancesData = [
     brand: 'Jean Paul Gaultier',
     price: 80.00,
     discountedPrice: 0,
-    image: ScandalImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/scandal.webp',
     longDescription: 'A charismatic and rebellious woody oriental fragrance, Scandal Pour Homme is a knock-out. It balances fresh notes of clary sage and mandarin with an addictive caramel and tonka bean heart, finishing with a sensual vetiver base.',
     category: 'men',
     rating: 4.2,
@@ -254,7 +212,8 @@ const allFragrancesData = [
     name: 'Terre D’ Hermes (30ml)',
     brand: 'Hermes',
     price: 80.00,
-    image: TerreDHermesImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/terre-d-hermes.webp',
     longDescription: 'A mineral-woody fragrance deeply rooted in the earth, Terre d\'Hermès celebrates the connection between man and nature. It blends vibrant citrus and sharp pepper with flint and a rich cedarwood base, evoking a profound sense of strength and authenticity.',
     category: 'men',
     rating: 4.7,
@@ -268,7 +227,7 @@ const allFragrancesData = [
     brand: 'Mont Blanc',
     price: 60.00,
     discountedPrice: 0,
-    image: LegendImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/legend.webp',
     longDescription: 'A sophisticated and charismatic fougère, Legend by Mont Blanc embodies the essence of a truly inspiring man. It opens with fresh bergamot and lavender, moving to a heart of white cedarwood, and settling into a warm, sensual oakmoss and tonka bean base.',
     category: 'men',
     rating: 4.1,
@@ -281,7 +240,8 @@ const allFragrancesData = [
     name: 'L’Eau d’Issey (30ml)',
     brand: 'Issey Miyake',
     price: 70.00,
-    image: LEauDIsseyImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/l-eau-d-issey.webp',
     longDescription: 'A pure and timeless aquatic woody fragrance, L\'Eau d\'Issey is inspired by the refreshing power of water. It features a unique blend of yuzu, cypress, and warm spices, creating a clear, vibrant, and effortlessly elegant scent.',
     category: 'men',
     rating: 4.0,
@@ -295,7 +255,7 @@ const allFragrancesData = [
     brand: 'Joop',
     price: 70.00,
     discountedPrice: 0,
-    image: JoopImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/joop.webp',
     longDescription: 'An intensely bold and distinctive oriental fougère, Joop! Homme is a captivating and warm fragrance. It\'s known for its powerful blend of cinnamon, jasmine, and honey, grounded by a rich vanilla and sandalwood base, making it unforgettable and alluring.',
     category: 'men',
     rating: 3.8,
@@ -308,7 +268,8 @@ const allFragrancesData = [
     name: 'Acqua Di Gio (30ml)',
     brand: 'Giorgio Armani',
     price: 70.00,
-    image: AcquaDiGioImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/acqua-di-gio.webp',
     longDescription: 'A timeless and iconic aquatic aromatic fragrance, Acqua di Giò captures the essence of the Mediterranean sea. It blends crisp bergamot and neroli with marine notes and a woody cedarwood base, creating a fresh, clean, and effortlessly masculine scent.',
     category: 'men',
     rating: 4.9,
@@ -322,7 +283,7 @@ const allFragrancesData = [
     brand: 'Dunhill',
     price: 80.00,
     discountedPrice: 0,
-    image: desireImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/desire.webp',
     longDescription: 'A passionate and vibrant oriental woody fragrance, Dunhill Desire is for the man who seeks to make an impression. It combines fresh apple and bergamot with a warm heart of rose and teakwood, settling into an intoxicating vanilla and musk base.',
     category: 'men',
     rating: 3.7,
@@ -335,7 +296,8 @@ const allFragrancesData = [
     name: 'Armani Si (30ml)',
     brand: 'Giorgio Armani',
     price: 70.00,
-    image: ArmaniSiImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/armani-si-women.webp',
     longDescription: 'An elegant and modern chypre fruity fragrance, Armani Sì is an ode to audacious women. It features the rich scent of blackcurrant nectar, combined with a delicate floral heart and a warm, vanilla-infused base, symbolizing strength and sophistication.',
     category: 'women',
     rating: 4.8,
@@ -349,7 +311,7 @@ const allFragrancesData = [
     brand: 'Dolce & Gabbana',
     price: 80.00,
     discountedPrice: 0,
-    image: LightBlueWomenImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/light-blue-women.webp',
     longDescription: 'Capturing the joy of Mediterranean life, Light Blue is a vibrant and fresh floral fruity fragrance for women. It blends sparkling Sicilian lemon, crisp apple, and bluebell with a heart of jasmine and white rose, resting on a warm cedarwood and musk base.',
     category: 'women',
     rating: 4.5,
@@ -362,7 +324,8 @@ const allFragrancesData = [
     name: 'Narciso Rodriguez (30ml)',
     brand: 'Narciso Rodriguez',
     price: 80.00,
-    image: NarcisoRodriguezImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/narciso-rodriguez.webp',
     longDescription: 'A modern and incredibly sensual musky floral-woody fragrance, Narciso Rodriguez for Her is a tribute to femininity. It revolves around a signature heart of musk, enhanced by notes of rose, peach, and patchouli, creating an addictive and sophisticated aura.',
     category: 'women',
     rating: 4.6,
@@ -376,7 +339,7 @@ const allFragrancesData = [
     brand: 'Christian Dior',
     price: 60.00,
     discountedPrice: 0,
-    image: HypnoticPoisonImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/hypnotic-poison.webp',
     longDescription: 'A mesmerizing and enigmatic oriental vanilla fragrance, Hypnotic Poison is a captivating elixir. It blends bitter almond, caraway, and jasmine with a creamy vanilla and musk base, creating a mysteriously alluring and powerfully seductive scent.',
     category: 'women',
     rating: 4.7,
@@ -389,7 +352,8 @@ const allFragrancesData = [
     name: 'Versace Eros Pour Femme (30ml)',
     brand: 'Versace',
     price: 70.00,
-    image: VersaceErosPourFemmeImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/versace-eros-pour-femme.webp',
     longDescription: 'A radiant and sensual floral woody musk, Versace Eros Pour Femme embodies primal desire and strength. It opens with Sicilian lemon and pomegranate, leading to a heart of jasmine and peony, and settling into a creamy sandalwood and musk base.',
     category: 'women',
     rating: 4.3,
@@ -403,7 +367,7 @@ const allFragrancesData = [
     brand: 'Paco Rabanne',
     price: 70.00,
     discountedPrice: 0,
-    image: OlympeaImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/olympea.webp',
     longDescription: 'A divine and powerful oriental fresh fragrance, Olympéa is inspired by a modern goddess. It blends sparkling green mandarin and aquatic notes with a unique salty vanilla accord and a rich ambergris and sandalwood base, creating an intensely captivating and addictive aroma.',
     category: 'women',
     rating: 4.4,
@@ -416,7 +380,8 @@ const allFragrancesData = [
     name: 'Good Girl (30ml)',
     brand: 'Carolina Herrera',
     price: 60.00,
-    image: GoodGirlImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/good-girl.webp',
     longDescription: 'A daring yet sophisticated oriental floral, Good Girl is a celebration of a woman\'s duality. It combines intoxicating notes of tuberose and jasmine with roasted tonka bean and cocoa, creating a powerfully seductive and modern scent with a playful edge.',
     category: 'women',
     rating: 4.9,
@@ -430,7 +395,7 @@ const allFragrancesData = [
     brand: 'Jean Paul Gaultier',
     price: 70.00,
     discountedPrice: 0,
-    image: ScandalWomenImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/scandal-women.webp',
     longDescription: 'A daring and elegant chypre honey fragrance, Scandal is a burst of Parisian chic. It opens with vibrant blood orange, leading to a sumptuous heart of honey and gardenia, and settling into a warm, patchouli-infused base, leaving an unforgettable trail.',
     category: 'women',
     rating: 4.2,
@@ -443,7 +408,8 @@ const allFragrancesData = [
     name: 'J’adore (30ml)',
     brand: 'Christian Dior',
     price: 70.00,
-    image: JAdoreImg,
+    discountedPrice: 0, // Added discountedPrice
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/j-adore.webp',
     longDescription: 'An iconic and luminous floral fragrance, J\'adore is a magnificent bouquet. It artfully blends notes of ylang-ylang, Damascena rose, and Sambac jasmine, creating a harmonious and supremely elegant aroma that celebrates absolute femininity.',
     category: 'women',
     rating: 4.8,
@@ -457,7 +423,7 @@ const allFragrancesData = [
     brand: 'Yves Saint Laurent',
     price: 60.00,
     discountedPrice: 0,
-    image: BlackOpiumImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/black-opium.webp',
     longDescription: 'An addictive and electrifying oriental vanilla fragrance, Black Opium is a shot of adrenaline. It combines the dark intensity of coffee beans with a sparkling white floral bouquet and a sensual vanilla and patchouli base, creating a captivating and bold statement.',
     category: 'women',
     rating: 4.7,
@@ -471,7 +437,7 @@ const allFragrancesData = [
     brand: 'Diesel',
     price: 70.00,
     discountedPrice: 0,
-    image: OnlyTheBraveImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/only-the-brave.webp',
     longDescription: 'This classic woody, oriental fragrance opens with modern notes of leather, lemon, and sparkling fresh aromas, leading to a heart of amber and cedar. This captivating scent is designed for the bold and determined.',
     category: 'men',
     rating: 4.7,
@@ -485,7 +451,7 @@ const allFragrancesData = [
     brand: 'Thiery Mugler',
     price: 60.00,
     discountedPrice: 0,
-    image: AlienImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/alien-women.webp',
     longDescription: 'A powerful, radiant, and gripping woody solar fragrance. It features luminous top notes of jasmine sambac, a mysterious heart of cashmeran wood, and a sensual, lingering base of white amber. A truly captivating and extraordinary scent.',
     category: 'women',
     rating: 4.7,
@@ -499,7 +465,7 @@ const allFragrancesData = [
     brand: 'Clinique',
     price: 50.00,
     discountedPrice: 0,
-    image: AromaticsElixirImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/aromatics-elixir-women.webp',
     longDescription: 'An intriguing and non-conformist floral chypre fragrance. It subtly touches the senses with notes of rose, jasmine, ylang-ylang, and vetiver, creating a complex and timeless aroma for the individualist.',
     category: 'women',
     rating: 4.7,
@@ -513,7 +479,7 @@ const allFragrancesData = [
     brand: 'DKNY',
     price: 60.00,
     discountedPrice: 0,
-    image: BeDeliciousImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/be-delicious-women.webp',
     longDescription: 'A juicy and irresistible fresh floral scent. It bursts with mouth-watering fresh apple, crisp cucumber, and sparkling grapefruit, blending into a heart of sweet magnolia, violet, and rose, and finishing with creamy sandalwood and white amber.',
     category: 'women',
     rating: 4.7,
@@ -527,7 +493,7 @@ const allFragrancesData = [
     brand: 'Chanel',
     price: 80.00,
     discountedPrice: 0,
-    image: ChanelNo5Img,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/chanel-no-5-women.webp',
     longDescription: 'The timeless essence of femininity, a powdery floral bouquet. It features bright citrus top notes, a heart composed around May Rose and Jasmine, and the smooth touch of Vanilla for an incredibly sensual trail. Aldehydes create its unique, iconic presence.',
     category: 'women',
     rating: 4.7,
@@ -541,7 +507,7 @@ const allFragrancesData = [
     brand: 'Chanel',
     price: 60.00,
     discountedPrice: 0,
-    image: CocoMademoiselleImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/coco-mademoiselle-women.webp',
     longDescription: 'A vibrant Chypre Floral fragrance. Its composition includes top notes of orange, mandarin orange, orange blossom, and bergamot, with a captivating heart of mimosa, jasmine, Turkish rose, and ylang-ylang. Elegant and spirited.',
     category: 'women',
     rating: 4.7,
@@ -555,7 +521,7 @@ const allFragrancesData = [
     brand: 'Elie Saab',
     price: 60.00,
     discountedPrice: 0,
-    image: ElieSaabImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/elie-saab-women.webp',
     longDescription: 'This perfume opens with delicate notes of orange blossom. Its heart blooms with Jasmine, while the base combines cedar, patchouli, and a subtle rose honey accord, creating an elegant and luminous floral woody fragrance.',
     category: 'women',
     rating: 4.7,
@@ -569,7 +535,7 @@ const allFragrancesData = [
     brand: 'Gucci',
     price: 60.00,
     discountedPrice: 0,
-    image: GucciRushImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/gucci-rush-women.webp',
     longDescription: 'A sharp, oriental, and woody fragrance for women. This feminine scent possesses a vibrant blend of floral gardenia, coriander seeds, jasmine, and rose, anchored by a warm vanilla base. Recommended for casual wear, it makes a bold statement.',
     category: 'women',
     rating: 4.7,
@@ -583,7 +549,7 @@ const allFragrancesData = [
     brand: 'Lancome',
     price: 70.00,
     discountedPrice: 0,
-    image: LaVieEstBelleImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/la-vie-est-belle-women.webp',
     longDescription: 'The iconic fragrance of happiness, a floral gourmand bouquet. It blends precious Iris accord with vibrant earthy notes of patchouli, sensual warm vanilla, and spun sugar, creating an unforgettable scent that encourages choosing your own path to joy.',
     category: 'women',
     rating: 4.7,
@@ -597,7 +563,7 @@ const allFragrancesData = [
     brand: 'Paco Rabanne',
     price: 60.00,
     discountedPrice: 0,
-    image: LadyMillionImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/lady-million-women.webp',
     longDescription: 'A woody, floral fragrance that combines fresh, carnal flowers with sexy patchouli. This fresh and addictive scent is both seductive and sensual, embodying a vibrant and confident femininity.',
     category: 'women',
     rating: 4.7,
@@ -611,7 +577,7 @@ const allFragrancesData = [
     brand: 'Maison Francis Kurkdjian',
     price: 100.00,
     discountedPrice: 0,
-    image: BaccaratRougeImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/baccarat-rouge-540-unisex.webp',
     longDescription: 'A captivating oriental floral fragrance for women and men. It weaves together luminous notes of saffron and jasmine, with a warm and woody heart of amberwood and ambergris, settling into a base of fir resin and cedar. A unique and unforgettable scent.',
     category: 'unisex',
     rating: 4.7,
@@ -625,7 +591,7 @@ const allFragrancesData = [
     brand: 'Byredo',
     price: 190.00,
     discountedPrice: 0,
-    image: MojaveGhostImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/mojave-ghost-unisex.webp',
     longDescription: 'A unique scent that exudes mystery and intense, earthy sensuality. It blends unusual notes, opening with exotic ambrette and sapodilla, revealing a heart of violet, magnolia, and finally drying down to a base of ambergris.',
     category: 'unisex',
     rating: 4.7,
@@ -639,7 +605,7 @@ const allFragrancesData = [
     brand: 'Creed',
     price: 240.00,
     discountedPrice: 0,
-    image: AventusImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/aventus-unisex.webp',
     longDescription: 'A daring and spirited fragrance inspired by a legendary emperor. It blends captivating top notes of blackcurrant, Italian bergamot, Calville Blanc apples, and effervescent pineapple. The heart reveals a rich blend of roses, Jasmine blossom, and patchouli, culminating in a lavish base of oak moss, ambergris, and vanilla.',
     category: 'unisex',
     rating: 4.7,
@@ -653,7 +619,7 @@ const allFragrancesData = [
     brand: 'Gucci',
     price: 280.00,
     discountedPrice: 0,
-    image: IntenseOudImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/intense-oud-unisex.webp',
     longDescription: 'A potent and luxurious fragrance. It features a prevailing accord of precious oud and olibanum, layered over a leathery base with the subtle sweetness of ambergris. Its balsamic profile makes it suitable for both men and women, leaving a very heavy sillage.',
     category: 'unisex',
     rating: 4.7,
@@ -667,7 +633,7 @@ const allFragrancesData = [
     brand: 'Louis Vuitton',
     price: 270.00,
     discountedPrice: 0,
-    image: OmbreNomadeImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/ombre-nomade-unisex.webp',
     longDescription: 'A captivating fragrance inspired by the allure of the Orient. Its heart features rose and benzoin, adding sweetness and warmth, while the base is composed of incense, saffron, and raspberry, lending a unique and contrasting touch to this rich oud-based scent.',
     category: 'unisex',
     rating: 4.7,
@@ -681,7 +647,7 @@ const allFragrancesData = [
     brand: 'Tom Ford',
     price: 140.00,
     discountedPrice: 0,
-    image: OudWoodImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/oud-wood-unisex.webp',
     longDescription: 'A groundbreaking composition of oud notes, exotic woods, and warm amber. It envelops the senses with dark, earthy sensuality. Exotic rosewood and cardamom give way to a smoky blend of precious oud notes, sandalwood, and vetiver.',
     category: 'unisex',
     rating: 4.7,
@@ -695,7 +661,7 @@ const allFragrancesData = [
     brand: 'Issey Miyake',
     price: 140.00,
     discountedPrice: 0,
-    image: LEauDIsseyWomenImg,
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/l-eau-d-issey-women.webp',
     longDescription: 'A pure and harmonious aquatic floral fragrance, inspired by the clarity of water. It features delicate notes of lotus, freesia, and cyclamen, intertwined with a heart of peony and lily, and a subtle base of precious woods and osmanthus, creating a refreshing and timeless aroma.',
     category: 'women',
     rating: 4.7,
@@ -704,7 +670,6 @@ const allFragrancesData = [
     showStockWarning: false,
   }
 ];
-
 
 // Apply short description to all fragrances using 'longDescription' as source
 const fragrancesWithShortDescription = allFragrancesData.map(frag => ({
