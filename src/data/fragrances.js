@@ -45,7 +45,7 @@ import AventusImg from '../assets/images/aventus-unisex.webp';
 import IntenseOudImg from '../assets/images/intense-oud-unisex.webp';
 import OmbreNomadeImg from '../assets/images/ombre-nomade-unisex.webp';
 import OudWoodImg from '../assets/images/oud-wood-unisex.webp';
-
+import LEauDIsseyWomenImg from '../assets/images/l-eau-d-issey-women.webp';
 
 
 // Helper function to extract the first sentence or a short snippet for shortDescription
@@ -71,7 +71,6 @@ const getShortDescription = (fullDescription) => {
   }
   return fullDescription.trim(); // Return full description if already short
 };
-
 
 const allFragrancesData = [
   {
@@ -132,7 +131,7 @@ const allFragrancesData = [
     id: '5',
     name: 'Bvlgari Man (30ml)',
     brand: 'Bvlgari',
-    price: 70.00,
+    price: 60.00,
     discountedPrice: 0,
     image: BvlgariManImg,
     longDescription: "A vibrant and woody oriental, this fragrance is a sophisticated tribute to masculine strength and elegance. It opens with bright bergamot and violet leaves, leading to a heart of vetiver and cypress, settling into a warm, sensual base of cashmere wood and benzoin. It's a modern classic for the discerning man.",
@@ -281,7 +280,7 @@ const allFragrancesData = [
     id: '16',
     name: 'L’Eau d’Issey (30ml)',
     brand: 'Issey Miyake',
-    price: 60.00,
+    price: 70.00,
     image: LEauDIsseyImg,
     longDescription: 'A pure and timeless aquatic woody fragrance, L\'Eau d\'Issey is inspired by the refreshing power of water. It features a unique blend of yuzu, cypress, and warm spices, creating a clear, vibrant, and effortlessly elegant scent.',
     category: 'men',
@@ -457,7 +456,7 @@ const allFragrancesData = [
     name: 'Black Opium (30ml)',
     brand: 'Yves Saint Laurent',
     price: 60.00,
-    discountedPrice:0,
+    discountedPrice: 0,
     image: BlackOpiumImg,
     longDescription: 'An addictive and electrifying oriental vanilla fragrance, Black Opium is a shot of adrenaline. It combines the dark intensity of coffee beans with a sparkling white floral bouquet and a sensual vanilla and patchouli base, creating a captivating and bold statement.',
     category: 'women',
@@ -473,7 +472,7 @@ const allFragrancesData = [
     price: 70.00,
     discountedPrice: 0,
     image: OnlyTheBraveImg,
-    longDescription: 'This classic woody, oriental fragrance opens with modern notes of **leather, lemon, and sparkling fresh aromas**, leading to a heart of **amber and cedar**. This captivating scent is designed for the bold and determined.',
+    longDescription: 'This classic woody, oriental fragrance opens with modern notes of leather, lemon, and sparkling fresh aromas, leading to a heart of amber and cedar. This captivating scent is designed for the bold and determined.',
     category: 'men',
     rating: 4.7,
     reviews: 160,
@@ -487,7 +486,7 @@ const allFragrancesData = [
     price: 60.00,
     discountedPrice: 0,
     image: AlienImg,
-    longDescription: 'A powerful, radiant, and gripping woody solar fragrance. It features luminous top notes of **jasmine sambac**, a mysterious heart of **cashmeran wood**, and a sensual, lingering base of **white amber**. A truly captivating and extraordinary scent.',
+    longDescription: 'A powerful, radiant, and gripping woody solar fragrance. It features luminous top notes of jasmine sambac, a mysterious heart of cashmeran wood, and a sensual, lingering base of white amber. A truly captivating and extraordinary scent.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -501,7 +500,7 @@ const allFragrancesData = [
     price: 50.00,
     discountedPrice: 0,
     image: AromaticsElixirImg,
-    longDescription: 'An intriguing and non-conformist floral chypre fragrance. It subtly touches the senses with notes of **rose, jasmine, ylang-ylang, and vetiver**, creating a complex and timeless aroma for the individualist.',
+    longDescription: 'An intriguing and non-conformist floral chypre fragrance. It subtly touches the senses with notes of rose, jasmine, ylang-ylang, and vetiver, creating a complex and timeless aroma for the individualist.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -515,7 +514,7 @@ const allFragrancesData = [
     price: 60.00,
     discountedPrice: 0,
     image: BeDeliciousImg,
-    longDescription: 'A juicy and irresistible fresh floral scent. It bursts with mouth-watering **fresh apple**, crisp **cucumber**, and sparkling **grapefruit**, blending into a heart of sweet **magnolia, violet, and rose**, and finishing with creamy **sandalwood and white amber**.',
+    longDescription: 'A juicy and irresistible fresh floral scent. It bursts with mouth-watering fresh apple, crisp cucumber, and sparkling grapefruit, blending into a heart of sweet magnolia, violet, and rose, and finishing with creamy sandalwood and white amber.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -529,7 +528,7 @@ const allFragrancesData = [
     price: 80.00,
     discountedPrice: 0,
     image: ChanelNo5Img,
-    longDescription: 'The timeless essence of femininity, a powdery floral bouquet. It features bright **citrus top notes**, a heart composed around **May Rose and Jasmine**, and the smooth touch of **Vanilla** for an incredibly sensual trail. Aldehydes create its unique, iconic presence.',
+    longDescription: 'The timeless essence of femininity, a powdery floral bouquet. It features bright citrus top notes, a heart composed around May Rose and Jasmine, and the smooth touch of Vanilla for an incredibly sensual trail. Aldehydes create its unique, iconic presence.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -543,7 +542,7 @@ const allFragrancesData = [
     price: 60.00,
     discountedPrice: 0,
     image: CocoMademoiselleImg,
-    longDescription: 'A vibrant Chypre Floral fragrance. Its composition includes top notes of **orange, mandarin orange, orange blossom, and bergamot**, with a captivating heart of **mimosa, jasmine, Turkish rose, and ylang-ylang**. Elegant and spirited.',
+    longDescription: 'A vibrant Chypre Floral fragrance. Its composition includes top notes of orange, mandarin orange, orange blossom, and bergamot, with a captivating heart of mimosa, jasmine, Turkish rose, and ylang-ylang. Elegant and spirited.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -557,7 +556,7 @@ const allFragrancesData = [
     price: 60.00,
     discountedPrice: 0,
     image: ElieSaabImg,
-    longDescription: 'This perfume opens with delicate notes of **orange blossom**. Its heart blooms with **Jasmine**, while the base combines **cedar, patchouli, and a subtle rose honey accord**, creating an elegant and luminous floral woody fragrance.',
+    longDescription: 'This perfume opens with delicate notes of orange blossom. Its heart blooms with Jasmine, while the base combines cedar, patchouli, and a subtle rose honey accord, creating an elegant and luminous floral woody fragrance.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -571,7 +570,7 @@ const allFragrancesData = [
     price: 60.00,
     discountedPrice: 0,
     image: GucciRushImg,
-    longDescription: 'A sharp, oriental, and woody fragrance for women. This feminine scent possesses a vibrant blend of floral **gardenia, coriander seeds, jasmine, and rose**, anchored by a warm **vanilla** base. Recommended for casual wear, it makes a bold statement.',
+    longDescription: 'A sharp, oriental, and woody fragrance for women. This feminine scent possesses a vibrant blend of floral gardenia, coriander seeds, jasmine, and rose, anchored by a warm vanilla base. Recommended for casual wear, it makes a bold statement.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -585,7 +584,7 @@ const allFragrancesData = [
     price: 70.00,
     discountedPrice: 0,
     image: LaVieEstBelleImg,
-    longDescription: 'The iconic fragrance of happiness, a floral gourmand bouquet. It blends precious **Iris accord** with vibrant earthy notes of **patchouli**, sensual warm **vanilla**, and spun sugar, creating an unforgettable scent that encourages choosing your own path to joy.',
+    longDescription: 'The iconic fragrance of happiness, a floral gourmand bouquet. It blends precious Iris accord with vibrant earthy notes of patchouli, sensual warm vanilla, and spun sugar, creating an unforgettable scent that encourages choosing your own path to joy.',
     category: 'women',
     rating: 4.7,
     reviews: 160,
@@ -613,7 +612,7 @@ const allFragrancesData = [
     price: 100.00,
     discountedPrice: 0,
     image: BaccaratRougeImg,
-    longDescription: 'A captivating oriental floral fragrance for women and men. It weaves together luminous notes of **saffron and jasmine**, with a warm and woody heart of **amberwood and ambergris**, settling into a base of **fir resin and cedar**. A unique and unforgettable scent.',
+    longDescription: 'A captivating oriental floral fragrance for women and men. It weaves together luminous notes of saffron and jasmine, with a warm and woody heart of amberwood and ambergris, settling into a base of fir resin and cedar. A unique and unforgettable scent.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
@@ -627,7 +626,7 @@ const allFragrancesData = [
     price: 190.00,
     discountedPrice: 0,
     image: MojaveGhostImg,
-    longDescription: 'A unique scent that exudes mystery and intense, earthy sensuality. It blends unusual notes, opening with exotic **ambrette and sapodilla**, revealing a heart of **violet, magnolia**, and finally drying down to a base of **ambergris**.',
+    longDescription: 'A unique scent that exudes mystery and intense, earthy sensuality. It blends unusual notes, opening with exotic ambrette and sapodilla, revealing a heart of violet, magnolia, and finally drying down to a base of ambergris.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
@@ -641,7 +640,7 @@ const allFragrancesData = [
     price: 240.00,
     discountedPrice: 0,
     image: AventusImg,
-    longDescription: 'A daring and spirited fragrance inspired by a legendary emperor. It blends captivating top notes of **blackcurrant, Italian bergamot, Calville Blanc apples, and effervescent pineapple**. The heart reveals a rich blend of **roses, Jasmine blossom, and patchouli**, culminating in a lavish base of **oak moss, ambergris, and vanilla**.',
+    longDescription: 'A daring and spirited fragrance inspired by a legendary emperor. It blends captivating top notes of blackcurrant, Italian bergamot, Calville Blanc apples, and effervescent pineapple. The heart reveals a rich blend of roses, Jasmine blossom, and patchouli, culminating in a lavish base of oak moss, ambergris, and vanilla.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
@@ -655,7 +654,7 @@ const allFragrancesData = [
     price: 280.00,
     discountedPrice: 0,
     image: IntenseOudImg,
-    longDescription: 'A potent and luxurious fragrance. It features a prevailing accord of precious **oud and olibanum**, layered over a leathery base with the subtle sweetness of **ambergris**. Its balsamic profile makes it suitable for both men and women, leaving a very heavy sillage.',
+    longDescription: 'A potent and luxurious fragrance. It features a prevailing accord of precious oud and olibanum, layered over a leathery base with the subtle sweetness of ambergris. Its balsamic profile makes it suitable for both men and women, leaving a very heavy sillage.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
@@ -669,7 +668,7 @@ const allFragrancesData = [
     price: 270.00,
     discountedPrice: 0,
     image: OmbreNomadeImg,
-    longDescription: 'A captivating fragrance inspired by the allure of the Orient. Its heart features **rose and benzoin**, adding sweetness and warmth, while the base is composed of **incense, saffron, and raspberry**, lending a unique and contrasting touch to this rich oud-based scent.',
+    longDescription: 'A captivating fragrance inspired by the allure of the Orient. Its heart features rose and benzoin, adding sweetness and warmth, while the base is composed of incense, saffron, and raspberry, lending a unique and contrasting touch to this rich oud-based scent.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
@@ -679,18 +678,31 @@ const allFragrancesData = [
   {
     id: '45',
     name: 'Oud Wood (30ml)',
-    brand: 'TOm Ford',
+    brand: 'Tom Ford',
     price: 140.00,
     discountedPrice: 0,
     image: OudWoodImg,
-    longDescription: 'A groundbreaking composition of **oud notes, exotic woods, and warm amber**. It envelops the senses with dark, earthy sensuality. Exotic **rosewood and cardamom** give way to a smoky blend of precious **oud notes, sandalwood, and vetiver**.',
+    longDescription: 'A groundbreaking composition of oud notes, exotic woods, and warm amber. It envelops the senses with dark, earthy sensuality. Exotic rosewood and cardamom give way to a smoky blend of precious oud notes, sandalwood, and vetiver.',
     category: 'unisex',
     rating: 4.7,
     reviews: 160,
     stock: 0,
     showStockWarning: false,
+  },
+  {
+    id: '46',
+    name: 'L’Eau d’Issey (30ml)',
+    brand: 'Issey Miyake',
+    price: 140.00,
+    discountedPrice: 0,
+    image: LEauDIsseyWomenImg,
+    longDescription: 'A pure and harmonious aquatic floral fragrance, inspired by the clarity of water. It features delicate notes of lotus, freesia, and cyclamen, intertwined with a heart of peony and lily, and a subtle base of precious woods and osmanthus, creating a refreshing and timeless aroma.',
+    category: 'women',
+    rating: 4.7,
+    reviews: 160,
+    stock: 0,
+    showStockWarning: false,
   }
-  
 ];
 
 
