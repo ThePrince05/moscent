@@ -395,7 +395,7 @@ const allFragrancesData = [
     brand: 'Jean Paul Gaultier',
     price: 70.00,
     discountedPrice: 0,
-    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/scandal-women.webp',
+    image: 'https://raw.githubusercontent.com/ThePrince05/moscent/master/src/assets/images/Scandal-women.webp',
     longDescription: 'A daring and elegant chypre honey fragrance, Scandal is a burst of Parisian chic. It opens with vibrant blood orange, leading to a sumptuous heart of honey and gardenia, and settling into a warm, patchouli-infused base, leaving an unforgettable trail.',
     category: 'women',
     rating: 4.2,
