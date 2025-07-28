@@ -2,14 +2,21 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import ProductCard from '../components/ProductCard'; // Import your ProductCard
-import fragrances from '../data/fragrances'; // Import your fragrance mock data
+import useFragrances from '../hooks/useFragrances';
 import BrandSlider from '../components/BrandSlider'; // Import the BrandSlider component
 
 // MODIFIED: Accept addToCart, toggleFavourite, and favoriteProductIds as props
 export default function Home({ addToCart, toggleFavourite, favoriteProductIds }) {
-  const trendingProducts = fragrances.slice(10, 15);
+  
+
   const trendingScrollContainerRef = useRef(null);
   const saleScrollContainerRef = useRef(null);
+  const { fragrances, loading, error } = useFragrances();
+
+  if (loading) return <div className="text-center py-20">Loading fragrances…</div>;
+  if (error) return <div className="text-center py-20 text-red-600">Failed to load fragrances.</div>;
+
+  const trendingProducts = fragrances.slice(10, 15);
 
   const scroll = (scrollContainerRef, scrollOffset) => {
     if (scrollContainerRef.current) {
@@ -18,8 +25,8 @@ export default function Home({ addToCart, toggleFavourite, favoriteProductIds })
   };
 
   const onSaleProducts = fragrances.filter(product =>
-    product.discountedPrice && product.discountedPrice < product.price
-  );
+       product.discountedPrice && product.discountedPrice < product.price
+    );
 
   return (
     <div className="bg-[#F2F4F3] min-h-screen">

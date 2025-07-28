@@ -1,35 +1,46 @@
 // src/pages/Favorites.jsx
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link and useNavigate
-import fragrances from '../data/fragrances'; // Your mock data for products
-import ProductCard from '../components/ProductCard'; // Assuming this component exists
-import Footer from '../components/Footer'; // Keep Footer if it's used elsewhere in your app structure
-import { FiArrowLeft } from 'react-icons/fi'; // Import the back arrow icon
+import { Link, useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from 'react-icons/fi';
+import ProductCard from '../components/ProductCard';
+import useFragrances from '../hooks/useFragrances'; // 👈 Custom hook for Firebase fetch
 
-// MODIFIED: Accept addToCart, toggleFavourite, and favoriteProductIds as props
 export default function Favorites({ addToCart, toggleFavourite, favoriteProductIds }) {
-  const [favoriteProducts, setFavoriteProducts] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
 
-  // Define color palette based on your project details
+  const { fragrances, loading, error } = useFragrances(); // 👈 Now pulling from Firebase
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+
   const primaryBackground = '#F2F4F3';
   const primaryText = '#0A0908';
-  const accentRed = '#D6001A'; // Added for potential use in button styles, though not directly used in the provided button snippet
+  const accentRed = '#D6001A';
 
   useEffect(() => {
-    // MODIFIED: Use the favoriteProductIds prop directly to filter products
-    const filteredProducts = fragrances.filter(product => favoriteProductIds.has(product.id));
-    setFavoriteProducts(filteredProducts);
-  }, [favoriteProductIds]); // MODIFIED: Dependency array now includes favoriteProductIds
+    if (!loading && fragrances.length) {
+      const filteredProducts = fragrances.filter(product =>
+        favoriteProductIds.has(product.id)
+      );
+      setFavoriteProducts(filteredProducts);
+    }
+  }, [fragrances, favoriteProductIds, loading]);
 
   return (
     <div className={`bg-[${primaryBackground}] min-h-screen flex flex-col`}>
-      <main className="container mx-auto **px-8 md:px-16 lg:px-24** py-8 flex-grow"> {/* MODIFIED LINE */}
-        <h1 className={`text-4xl font-bold text-[${primaryText}] mb-8 text-center`}>Your Favorites</h1>
+      <main className="container mx-auto px-8 md:px-16 lg:px-24 py-8 flex-grow">
+        <h1 className={`text-4xl font-bold text-[${primaryText}] mb-8 text-center`}>
+          Your Favorites
+        </h1>
 
-        {favoriteProducts.length === 0 ? (
+        {loading && <p className="text-center text-gray-500 text-xl py-10">Loading your favorite fragrances...</p>}
+        {error && <p className="text-center text-red-500 text-xl py-10">Error fetching fragrances. Please try again later.</p>}
+
+        {!loading && !error && favoriteProducts.length === 0 ? (
           <p className={`text-xl text-gray-600 text-center py-10`}>
-            You haven't added any fragrances to your favorites yet. Start Browse our <Link to="/catalog" className={`text-[${accentRed}] hover:underline`}>catalog</Link>! {/* Changed link color for consistency */}
+            You haven't added any fragrances to your favorites yet. Browse our{' '}
+            <Link to="/catalog" className={`text-[${accentRed}] hover:underline`}>
+              catalog
+            </Link>
+            !
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -37,16 +48,15 @@ export default function Favorites({ addToCart, toggleFavourite, favoriteProductI
               <ProductCard
                 key={product.id}
                 product={product}
-                addToCart={addToCart} // MODIFIED: Pass the actual addToCart prop
-                toggleFavourite={toggleFavourite} // MODIFIED: Pass the actual toggleFavourite prop
-                isFavouritedInitial={true} // Since it's on the favorites page, it's initially favorited (and will be removed if unfavorited)
+                addToCart={addToCart}
+                toggleFavourite={toggleFavourite}
+                isFavouritedInitial={true}
               />
             ))}
           </div>
         )}
 
-        {/* Back to Account Button - Added here, typically at the bottom of the main content */}
-        <div className="flex justify-center mt-8"> {/* Added margin top for spacing */}
+        <div className="flex justify-center mt-8">
           <button
             type="button"
             onClick={() => navigate('/my-account')}
@@ -58,7 +68,6 @@ export default function Favorites({ addToCart, toggleFavourite, favoriteProductI
             <FiArrowLeft size={20} className="mr-2 flex-shrink-0" /> Back to Account
           </button>
         </div>
-
       </main>
     </div>
   );

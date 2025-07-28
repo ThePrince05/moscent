@@ -2,11 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import fragrances from '../data/fragrances';
+import useFragrances from '../hooks/useFragrances';
 import { FiTruck } from 'react-icons/fi';
 
 // Receive addToCart, toggleFavourite, and favoriteProductIds as props from App.jsx
 export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds }) { // MODIFIED: Added toggleFavourite and favoriteProductIds
+
+const { fragrances, loading, error } = useFragrances();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [filteredFragrances, setFilteredFragrances] = useState([]);
   const [activeCategory, setActiveCategory] = useState('all');
@@ -34,7 +37,8 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
   }, [searchParams]);
 
   useEffect(() => {
-    // Get parameters from URL
+    if (loading || error || !fragrances.length) return;
+
     const category = searchParams.get('category') || 'all';
     const sale = searchParams.get('sale') === 'true';
     const brandParam = searchParams.get('brand');
@@ -43,21 +47,21 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
 
     let currentFragrances = [...fragrances];
 
-    // 1. Filter by Category
+    // Filter by Category
     if (category !== 'all') {
       currentFragrances = currentFragrances.filter(product =>
         product.category.toLowerCase() === category.toLowerCase()
       );
     }
 
-    // 2. Filter by Sale
+    // Filter by Sale
     if (sale) {
       currentFragrances = currentFragrances.filter(product =>
         product.discountedPrice && product.discountedPrice < product.price
       );
     }
 
-    // 3. Filter by Brand
+    // Filter by Brand
     if (brandParam) {
       const lowerCaseBrandParam = brandParam.toLowerCase();
       currentFragrances = currentFragrances.filter(product =>
@@ -65,7 +69,7 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
       );
     }
 
-    // 4. Filter by Search Term (using debounced value)
+    // Filter by Search Term
     if (debouncedSearchTerm) {
       const lowerCaseSearchTerm = debouncedSearchTerm.toLowerCase();
       currentFragrances = currentFragrances.filter(product =>
@@ -75,7 +79,7 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
       );
     }
 
-    // 5. Sort
+    // Sort
     currentFragrances.sort((a, b) => {
       if (sortOption === 'price-asc') {
         const priceA = a.discountedPrice || a.price;
@@ -94,7 +98,7 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
     });
 
     setFilteredFragrances(currentFragrances);
-  }, [searchParams, debouncedSearchTerm, sortOption]);
+  }, [searchParams, debouncedSearchTerm, sortOption, fragrances, loading, error]);
 
 
   const handleFilterChange = (filterType, value) => {
@@ -207,6 +211,15 @@ export default function Catalog({ addToCart, toggleFavourite, favoriteProductIds
             </div>
           </div>
         </div>
+        
+        {loading && (
+          <p className="text-center text-lg text-gray-500">Loading fragrances...</p>
+        )}
+
+        {error && (
+          <p className="text-center text-lg text-red-500">Failed to load fragrances. Please try again later.</p>
+        )}
+
 
         {filteredFragrances.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

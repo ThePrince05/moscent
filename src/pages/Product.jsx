@@ -1,7 +1,7 @@
 // src/pages/Product.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import fragrances from '../data/fragrances'; // Your mock data
+import useProduct from '../hooks/useProduct';
 
 import { FaShoppingCart } from 'react-icons/fa'; // Import FaShoppingCart for the icon
 import { FiHeart } from 'react-icons/fi'; // Import FiHeart for the heart icon
@@ -41,7 +41,8 @@ export default function Product({ addToCart, toggleFavourite, favoriteProductIds
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState(null);
+  const { product, loading, error } = useProduct(id);
+
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('');
   // Removed local isFavourited state, it's now derived from favoriteProductIds
@@ -54,23 +55,19 @@ export default function Product({ addToCart, toggleFavourite, favoriteProductIds
   // Removed getFavourites and saveFavourites as they are now handled in App.jsx
 
   useEffect(() => {
-    const foundProduct = fragrances.find(p => p.id === id);
-    if (foundProduct) {
-      setProduct(foundProduct);
-      if (foundProduct.availableSizes && foundProduct.availableSizes.length > 0) {
-        setSelectedSize(foundProduct.availableSizes[0]);
-      } else {
-        setSelectedSize(null); // Ensure selectedSize is null if no sizes are available
+      if (product) {
+        if (product.availableSizes && product.availableSizes.length > 0) {
+          setSelectedSize(product.availableSizes[0]);
+        } else {
+          setSelectedSize(null);
+        }
+      } else if (!loading && error) {
+        navigate('/catalog'); // Redirect if product not found
       }
-      // isFavourited is now derived directly from favoriteProductIds prop
-    } else {
-      console.warn(`Product with ID ${id} not found.`);
-      navigate('/catalog');
-    }
-  }, [id, navigate, favoriteProductIds]); // MODIFIED: Added favoriteProductIds to dependency array
+    }, [product, loading, error, navigate]);
 
-  // Determine isFavourited status from the prop
-  const isFavourited = product ? favoriteProductIds.has(product.id) : false;
+    // Determine isFavourited status from the prop
+    const isFavourited = product ? favoriteProductIds.has(product.id) : false;
 
   const handleToggleFavourite = (e) => {
     e.preventDefault();
@@ -88,6 +85,15 @@ export default function Product({ addToCart, toggleFavourite, favoriteProductIds
       setQuantity('');
     }
   };
+
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-600">
+        <p>{error}</p>
+      </div>
+    );
+  }
 
   const incrementQuantity = () => {
     setQuantity(prevQuantity => (prevQuantity === '' ? 1 : prevQuantity + 1));
